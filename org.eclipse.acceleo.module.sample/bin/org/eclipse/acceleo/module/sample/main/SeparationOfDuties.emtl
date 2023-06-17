@@ -1,0 +1,788 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:mtl="http://www.eclipse.org/acceleo/mtl/3.0" xmlns:ocl.ecore="http://www.eclipse.org/ocl/1.1.0/Ecore">
+  <mtl:Module name="SeparationOfDuties" nsURI="org::eclipse::acceleo::module::sample::main::SeparationOfDuties" startHeaderPosition="29" endHeaderPosition="282">
+    <input>
+      <takesTypesFrom href="http://it.polimi.isgroup.secbpmn2bc.model/1.0#/"/>
+    </input>
+    <input>
+      <takesTypesFrom href="http://it.unitn.disi.sweng.gmt.model/1.0#/"/>
+    </input>
+    <input>
+      <takesTypesFrom href="http://it.unitn.disi.sweng.secbpmn.model/1.0#/"/>
+    </input>
+    <ownedModuleElement xsi:type="mtl:Comment">
+      <body startPosition="207" endPosition="282" value=": generates a class SeparationOfDuties whenever such an annotation is found"/>
+    </ownedModuleElement>
+    <ownedModuleElement xsi:type="mtl:Template" name="generateElement" visibility="Public" main="true">
+      <body xsi:type="mtl:ForBlock">
+        <body xsi:type="ocl.ecore:StringLiteralExp" stringSymbol="&#xA;"/>
+        <body xsi:type="mtl:FileBlock" openMode="OverWrite">
+          <body xsi:type="ocl.ecore:StringLiteralExp" stringSymbol="public class SeparationOfDuties {&#xA;"/>
+          <body xsi:type="ocl.ecore:StringLiteralExp" stringSymbol="&#x9;public boolean areDutiesDistinctInFlow(){&#xA;&#x9;&#x9;FlowLogic&lt;MyFlowLogicReturnType> flowLogic = this.getFlowLogic();&#xA;&#x9;&#x9;FlowSession otherPartySession = flowLogic.getCounterpartySession();&#xA;&#xA;&#x9;&#x9;Party initiator = this.getServiceHub().getMyInfo().getLegalIdentities().get(0);&#xA;&#x9;&#x9;Party responder = otherPartySession.getCounterparty();&#xA;&#x9;&#x9;&#xA;&#x9;&#x9;return ! initiator.equals(responder);&#xA;&#x9;}&#xA;}&#xA;"/>
+          <fileUrl xsi:type="ocl.ecore:StringLiteralExp" stringSymbol="SeparationOfDuties.java">
+            <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+          </fileUrl>
+          <charset xsi:type="ocl.ecore:StringLiteralExp" stringSymbol="UTF-8">
+            <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+          </charset>
+        </body>
+        <iterSet xsi:type="ocl.ecore:OperationCallExp">
+          <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/Boolean"/>
+          <source xsi:type="ocl.ecore:OperationCallExp">
+            <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/Boolean"/>
+            <source xsi:type="ocl.ecore:OperationCallExp">
+              <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/Boolean"/>
+              <source xsi:type="ocl.ecore:OperationCallExp">
+                <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/Boolean"/>
+                <source xsi:type="ocl.ecore:IteratorExp" name="collect" eType="/6/Sequence(Boolean)">
+                  <source xsi:type="ocl.ecore:IteratorExp" name="collect" eType="/6/Sequence(Task)">
+                    <source xsi:type="ocl.ecore:IteratorExp" name="collect" eType="/6/Sequence(GMTElement)">
+                      <source xsi:type="ocl.ecore:PropertyCallExp" eType="/6/OrderedSet(SecurityAssociation)">
+                        <source xsi:type="ocl.ecore:VariableExp" name="self" referredVariable="/8">
+                          <eType xsi:type="ecore:EClass" href="http://it.unitn.disi.sweng.secbpmn.model/1.0#//SeparationOfDuty"/>
+                        </source>
+                        <referredProperty xsi:type="ecore:EReference" href="http://it.unitn.disi.sweng.secbpmn.model/1.0#//SecurityAnnotation/securityAssociation"/>
+                      </source>
+                      <body xsi:type="ocl.ecore:PropertyCallExp">
+                        <eType xsi:type="ecore:EClass" href="http://it.unitn.disi.sweng.gmt.model/1.0#//GMTElement"/>
+                        <source xsi:type="ocl.ecore:VariableExp" name="temp1" referredVariable="/0/generateElement/%/%.2/%/%/%/collect/collect/collect/temp1">
+                          <eType xsi:type="ecore:EClass" href="http://it.unitn.disi.sweng.secbpmn.model/1.0#//SecurityAssociation"/>
+                        </source>
+                        <referredProperty xsi:type="ecore:EReference" href="http://it.unitn.disi.sweng.gmt.model/1.0#//GMTRelation/target"/>
+                      </body>
+                      <iterator xsi:type="ocl.ecore:Variable" name="temp1">
+                        <eType xsi:type="ecore:EClass" href="http://it.unitn.disi.sweng.secbpmn.model/1.0#//SecurityAssociation"/>
+                      </iterator>
+                    </source>
+                    <body xsi:type="ocl.ecore:OperationCallExp" eType="/6/Sequence(Task)" referredOperation="/1/ecore_EObject_Class/eContents">
+                      <source xsi:type="ocl.ecore:VariableExp" name="temp2" referredVariable="/0/generateElement/%/%.2/%/%/%/collect/collect/temp2">
+                        <eType xsi:type="ecore:EClass" href="http://it.unitn.disi.sweng.gmt.model/1.0#//GMTElement"/>
+                      </source>
+                      <argument xsi:type="ocl.ecore:TypeExp" eType="/7/Task">
+                        <referredType xsi:type="ecore:EClass" href="http://it.polimi.isgroup.secbpmn2bc.model/1.0#//Task"/>
+                      </argument>
+                    </body>
+                    <iterator xsi:type="ocl.ecore:Variable" name="temp2">
+                      <eType xsi:type="ecore:EClass" href="http://it.unitn.disi.sweng.gmt.model/1.0#//GMTElement"/>
+                    </iterator>
+                  </source>
+                  <body xsi:type="ocl.ecore:PropertyCallExp">
+                    <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/Boolean"/>
+                    <source xsi:type="ocl.ecore:VariableExp" name="temp3" referredVariable="/0/generateElement/%/%.2/%/%/%/collect/temp3">
+                      <eType xsi:type="ecore:EClass" href="http://it.polimi.isgroup.secbpmn2bc.model/1.0#//Task"/>
+                    </source>
+                    <referredProperty xsi:type="ecore:EAttribute" href="http://it.polimi.isgroup.secbpmn2bc.model/1.0#//Task/OnChainExecution"/>
+                  </body>
+                  <iterator xsi:type="ocl.ecore:Variable" name="temp3">
+                    <eType xsi:type="ecore:EClass" href="http://it.polimi.isgroup.secbpmn2bc.model/1.0#//Task"/>
+                  </iterator>
+                </source>
+                <argument xsi:type="ocl.ecore:BooleanLiteralExp" booleanSymbol="true">
+                  <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/Boolean"/>
+                </argument>
+                <referredOperation xsi:type="ecore:EOperation" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/OclAny_Class/="/>
+              </source>
+              <argument xsi:type="ocl.ecore:OperationCallExp">
+                <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/Boolean"/>
+                <source xsi:type="ocl.ecore:IteratorExp" name="collect" eType="/6/Sequence(OnChainData)">
+                  <source xsi:type="ocl.ecore:IteratorExp" name="collect" eType="/6/Sequence(DataObject)">
+                    <source xsi:type="ocl.ecore:IteratorExp" name="collect" eType="/6/Sequence(GMTElement)">
+                      <source xsi:type="ocl.ecore:PropertyCallExp" eType="/6/OrderedSet(SecurityAssociation)">
+                        <source xsi:type="ocl.ecore:VariableExp" name="self" referredVariable="/8">
+                          <eType xsi:type="ecore:EClass" href="http://it.unitn.disi.sweng.secbpmn.model/1.0#//SeparationOfDuty"/>
+                        </source>
+                        <referredProperty xsi:type="ecore:EReference" href="http://it.unitn.disi.sweng.secbpmn.model/1.0#//SecurityAnnotation/securityAssociation"/>
+                      </source>
+                      <body xsi:type="ocl.ecore:PropertyCallExp">
+                        <eType xsi:type="ecore:EClass" href="http://it.unitn.disi.sweng.gmt.model/1.0#//GMTElement"/>
+                        <source xsi:type="ocl.ecore:VariableExp" name="temp4" referredVariable="/0/generateElement/%/%.2/%/%/%.1/collect/collect/collect/temp4">
+                          <eType xsi:type="ecore:EClass" href="http://it.unitn.disi.sweng.secbpmn.model/1.0#//SecurityAssociation"/>
+                        </source>
+                        <referredProperty xsi:type="ecore:EReference" href="http://it.unitn.disi.sweng.gmt.model/1.0#//GMTRelation/target"/>
+                      </body>
+                      <iterator xsi:type="ocl.ecore:Variable" name="temp4">
+                        <eType xsi:type="ecore:EClass" href="http://it.unitn.disi.sweng.secbpmn.model/1.0#//SecurityAssociation"/>
+                      </iterator>
+                    </source>
+                    <body xsi:type="ocl.ecore:OperationCallExp" eType="/6/Sequence(DataObject)" referredOperation="/1/ecore_EObject_Class/eContents">
+                      <source xsi:type="ocl.ecore:VariableExp" name="temp5" referredVariable="/0/generateElement/%/%.2/%/%/%.1/collect/collect/temp5">
+                        <eType xsi:type="ecore:EClass" href="http://it.unitn.disi.sweng.gmt.model/1.0#//GMTElement"/>
+                      </source>
+                      <argument xsi:type="ocl.ecore:TypeExp" eType="/7/DataObject">
+                        <referredType xsi:type="ecore:EClass" href="http://it.polimi.isgroup.secbpmn2bc.model/1.0#//DataObject"/>
+                      </argument>
+                    </body>
+                    <iterator xsi:type="ocl.ecore:Variable" name="temp5">
+                      <eType xsi:type="ecore:EClass" href="http://it.unitn.disi.sweng.gmt.model/1.0#//GMTElement"/>
+                    </iterator>
+                  </source>
+                  <body xsi:type="ocl.ecore:PropertyCallExp">
+                    <eType xsi:type="ecore:EEnum" href="http://it.polimi.isgroup.secbpmn2bc.model/1.0#//OnChainData"/>
+                    <source xsi:type="ocl.ecore:VariableExp" name="temp6" referredVariable="/0/generateElement/%/%.2/%/%/%.1/collect/temp6">
+                      <eType xsi:type="ecore:EClass" href="http://it.polimi.isgroup.secbpmn2bc.model/1.0#//DataObject"/>
+                    </source>
+                    <referredProperty xsi:type="ecore:EAttribute" href="http://it.polimi.isgroup.secbpmn2bc.model/1.0#//DataItems/OnChainData"/>
+                  </body>
+                  <iterator xsi:type="ocl.ecore:Variable" name="temp6">
+                    <eType xsi:type="ecore:EClass" href="http://it.polimi.isgroup.secbpmn2bc.model/1.0#//DataObject"/>
+                  </iterator>
+                </source>
+                <argument xsi:type="ocl.ecore:StringLiteralExp" stringSymbol="encrypted">
+                  <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+                </argument>
+                <referredOperation xsi:type="ecore:EOperation" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/OclAny_Class/="/>
+              </argument>
+              <referredOperation xsi:type="ecore:EOperation" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/Boolean_Class/or"/>
+            </source>
+            <argument xsi:type="ocl.ecore:OperationCallExp">
+              <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/Boolean"/>
+              <source xsi:type="ocl.ecore:IteratorExp" name="collect" eType="/6/Sequence(OnChainData)">
+                <source xsi:type="ocl.ecore:IteratorExp" name="collect" eType="/6/Sequence(DataObject)">
+                  <source xsi:type="ocl.ecore:IteratorExp" name="collect" eType="/6/Sequence(GMTElement)">
+                    <source xsi:type="ocl.ecore:PropertyCallExp" eType="/6/OrderedSet(SecurityAssociation)">
+                      <source xsi:type="ocl.ecore:VariableExp" name="self" referredVariable="/8">
+                        <eType xsi:type="ecore:EClass" href="http://it.unitn.disi.sweng.secbpmn.model/1.0#//SeparationOfDuty"/>
+                      </source>
+                      <referredProperty xsi:type="ecore:EReference" href="http://it.unitn.disi.sweng.secbpmn.model/1.0#//SecurityAnnotation/securityAssociation"/>
+                    </source>
+                    <body xsi:type="ocl.ecore:PropertyCallExp">
+                      <eType xsi:type="ecore:EClass" href="http://it.unitn.disi.sweng.gmt.model/1.0#//GMTElement"/>
+                      <source xsi:type="ocl.ecore:VariableExp" name="temp7" referredVariable="/0/generateElement/%/%.2/%/%.1/collect/collect/collect/temp7">
+                        <eType xsi:type="ecore:EClass" href="http://it.unitn.disi.sweng.secbpmn.model/1.0#//SecurityAssociation"/>
+                      </source>
+                      <referredProperty xsi:type="ecore:EReference" href="http://it.unitn.disi.sweng.gmt.model/1.0#//GMTRelation/target"/>
+                    </body>
+                    <iterator xsi:type="ocl.ecore:Variable" name="temp7">
+                      <eType xsi:type="ecore:EClass" href="http://it.unitn.disi.sweng.secbpmn.model/1.0#//SecurityAssociation"/>
+                    </iterator>
+                  </source>
+                  <body xsi:type="ocl.ecore:OperationCallExp" eType="/6/Sequence(DataObject)" referredOperation="/1/ecore_EObject_Class/eContents">
+                    <source xsi:type="ocl.ecore:VariableExp" name="temp8" referredVariable="/0/generateElement/%/%.2/%/%.1/collect/collect/temp8">
+                      <eType xsi:type="ecore:EClass" href="http://it.unitn.disi.sweng.gmt.model/1.0#//GMTElement"/>
+                    </source>
+                    <argument xsi:type="ocl.ecore:TypeExp" eType="/7/DataObject">
+                      <referredType xsi:type="ecore:EClass" href="http://it.polimi.isgroup.secbpmn2bc.model/1.0#//DataObject"/>
+                    </argument>
+                  </body>
+                  <iterator xsi:type="ocl.ecore:Variable" name="temp8">
+                    <eType xsi:type="ecore:EClass" href="http://it.unitn.disi.sweng.gmt.model/1.0#//GMTElement"/>
+                  </iterator>
+                </source>
+                <body xsi:type="ocl.ecore:PropertyCallExp">
+                  <eType xsi:type="ecore:EEnum" href="http://it.polimi.isgroup.secbpmn2bc.model/1.0#//OnChainData"/>
+                  <source xsi:type="ocl.ecore:VariableExp" name="temp9" referredVariable="/0/generateElement/%/%.2/%/%.1/collect/temp9">
+                    <eType xsi:type="ecore:EClass" href="http://it.polimi.isgroup.secbpmn2bc.model/1.0#//DataObject"/>
+                  </source>
+                  <referredProperty xsi:type="ecore:EAttribute" href="http://it.polimi.isgroup.secbpmn2bc.model/1.0#//DataItems/OnChainData"/>
+                </body>
+                <iterator xsi:type="ocl.ecore:Variable" name="temp9">
+                  <eType xsi:type="ecore:EClass" href="http://it.polimi.isgroup.secbpmn2bc.model/1.0#//DataObject"/>
+                </iterator>
+              </source>
+              <argument xsi:type="ocl.ecore:StringLiteralExp" stringSymbol="unencrypted">
+                <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+              </argument>
+              <referredOperation xsi:type="ecore:EOperation" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/OclAny_Class/="/>
+            </argument>
+            <referredOperation xsi:type="ecore:EOperation" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/Boolean_Class/or"/>
+          </source>
+          <argument xsi:type="ocl.ecore:OperationCallExp">
+            <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/Boolean"/>
+            <source xsi:type="ocl.ecore:IteratorExp" name="collect" eType="/6/Sequence(OnChainData)">
+              <source xsi:type="ocl.ecore:IteratorExp" name="collect" eType="/6/Sequence(DataObject)">
+                <source xsi:type="ocl.ecore:IteratorExp" name="collect" eType="/6/Sequence(GMTElement)">
+                  <source xsi:type="ocl.ecore:PropertyCallExp" eType="/6/OrderedSet(SecurityAssociation)">
+                    <source xsi:type="ocl.ecore:VariableExp" name="self" referredVariable="/8">
+                      <eType xsi:type="ecore:EClass" href="http://it.unitn.disi.sweng.secbpmn.model/1.0#//SeparationOfDuty"/>
+                    </source>
+                    <referredProperty xsi:type="ecore:EReference" href="http://it.unitn.disi.sweng.secbpmn.model/1.0#//SecurityAnnotation/securityAssociation"/>
+                  </source>
+                  <body xsi:type="ocl.ecore:PropertyCallExp">
+                    <eType xsi:type="ecore:EClass" href="http://it.unitn.disi.sweng.gmt.model/1.0#//GMTElement"/>
+                    <source xsi:type="ocl.ecore:VariableExp" name="temp10" referredVariable="/0/generateElement/%/%.2/%.1/collect/collect/collect/temp10">
+                      <eType xsi:type="ecore:EClass" href="http://it.unitn.disi.sweng.secbpmn.model/1.0#//SecurityAssociation"/>
+                    </source>
+                    <referredProperty xsi:type="ecore:EReference" href="http://it.unitn.disi.sweng.gmt.model/1.0#//GMTRelation/target"/>
+                  </body>
+                  <iterator xsi:type="ocl.ecore:Variable" name="temp10">
+                    <eType xsi:type="ecore:EClass" href="http://it.unitn.disi.sweng.secbpmn.model/1.0#//SecurityAssociation"/>
+                  </iterator>
+                </source>
+                <body xsi:type="ocl.ecore:OperationCallExp" eType="/6/Sequence(DataObject)" referredOperation="/1/ecore_EObject_Class/eContents">
+                  <source xsi:type="ocl.ecore:VariableExp" name="temp11" referredVariable="/0/generateElement/%/%.2/%.1/collect/collect/temp11">
+                    <eType xsi:type="ecore:EClass" href="http://it.unitn.disi.sweng.gmt.model/1.0#//GMTElement"/>
+                  </source>
+                  <argument xsi:type="ocl.ecore:TypeExp" eType="/7/DataObject">
+                    <referredType xsi:type="ecore:EClass" href="http://it.polimi.isgroup.secbpmn2bc.model/1.0#//DataObject"/>
+                  </argument>
+                </body>
+                <iterator xsi:type="ocl.ecore:Variable" name="temp11">
+                  <eType xsi:type="ecore:EClass" href="http://it.unitn.disi.sweng.gmt.model/1.0#//GMTElement"/>
+                </iterator>
+              </source>
+              <body xsi:type="ocl.ecore:PropertyCallExp">
+                <eType xsi:type="ecore:EEnum" href="http://it.polimi.isgroup.secbpmn2bc.model/1.0#//OnChainData"/>
+                <source xsi:type="ocl.ecore:VariableExp" name="temp12" referredVariable="/0/generateElement/%/%.2/%.1/collect/temp12">
+                  <eType xsi:type="ecore:EClass" href="http://it.polimi.isgroup.secbpmn2bc.model/1.0#//DataObject"/>
+                </source>
+                <referredProperty xsi:type="ecore:EAttribute" href="http://it.polimi.isgroup.secbpmn2bc.model/1.0#//DataItems/OnChainData"/>
+              </body>
+              <iterator xsi:type="ocl.ecore:Variable" name="temp12">
+                <eType xsi:type="ecore:EClass" href="http://it.polimi.isgroup.secbpmn2bc.model/1.0#//DataObject"/>
+              </iterator>
+            </source>
+            <argument xsi:type="ocl.ecore:StringLiteralExp" stringSymbol="digest">
+              <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+            </argument>
+            <referredOperation xsi:type="ecore:EOperation" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/OclAny_Class/="/>
+          </argument>
+          <referredOperation xsi:type="ecore:EOperation" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/Boolean_Class/or"/>
+        </iterSet>
+      </body>
+      <parameter name="aSeparationOfDuty">
+        <eType xsi:type="ecore:EClass" href="http://it.unitn.disi.sweng.secbpmn.model/1.0#//SeparationOfDuty"/>
+      </parameter>
+    </ownedModuleElement>
+  </mtl:Module>
+  <ecore:EPackage name="additions">
+    <eClassifiers xsi:type="ecore:EClass" name="oclstdlib_String_Class">
+      <eAnnotations source="http://www.eclipse.org/ocl/1.1.0/OCL">
+        <references href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+      </eAnnotations>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="oclstdlib_Integer_Class">
+      <eAnnotations source="http://www.eclipse.org/ocl/1.1.0/OCL">
+        <references href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/Integer"/>
+      </eAnnotations>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="oclstdlib_Real_Class">
+      <eAnnotations source="http://www.eclipse.org/ocl/1.1.0/OCL">
+        <references href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/Real"/>
+      </eAnnotations>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="ecore_EObject_Class">
+      <eAnnotations source="http://www.eclipse.org/ocl/1.1.0/OCL">
+        <references href="http://www.eclipse.org/emf/2002/Ecore#//EObject"/>
+      </eAnnotations>
+      <eOperations name="eContents">
+        <eAnnotations source="MTL non-standard"/>
+        <eType xsi:type="ocl.ecore:SequenceType" href="http://www.eclipse.org/acceleo/mtl/3.0/mtlnonstdlib.ecore#//Sequence(OclAny)"/>
+        <eParameters name="filter">
+          <eType xsi:type="ocl.ecore:TypeType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/OclType"/>
+        </eParameters>
+      </eOperations>
+      <eOperations name="generateElement">
+        <eAnnotations source="http://www.eclipse.org/ocl/1.1.0/OCL">
+          <contents xsi:type="ocl.ecore:Constraint"/>
+        </eAnnotations>
+        <eAnnotations source="MTL" references="/0/generateElement"/>
+        <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+        <eParameters name="aSeparationOfDuty">
+          <eType xsi:type="ecore:EClass" href="http://it.unitn.disi.sweng.secbpmn.model/1.0#//SeparationOfDuty"/>
+        </eParameters>
+      </eOperations>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="oclstdlib_OclAny_Class">
+      <eAnnotations source="http://www.eclipse.org/ocl/1.1.0/OCL">
+        <references href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/OclAny"/>
+      </eAnnotations>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="oclstdlib_Collection(T)_Class">
+      <eAnnotations source="http://www.eclipse.org/ocl/1.1.0/OCL">
+        <references href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/Collection(T)"/>
+      </eAnnotations>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="oclstdlib_Sequence(T)_Class">
+      <eAnnotations source="http://www.eclipse.org/ocl/1.1.0/OCL">
+        <references href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/Sequence(T)"/>
+      </eAnnotations>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="oclstdlib_OrderedSet(T)_Class">
+      <eAnnotations source="http://www.eclipse.org/ocl/1.1.0/OCL">
+        <references href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/OrderedSet(T)"/>
+      </eAnnotations>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="secbpmn_SeparationOfDuty_Class">
+      <eAnnotations source="http://www.eclipse.org/ocl/1.1.0/OCL">
+        <references href="http://it.unitn.disi.sweng.secbpmn.model/1.0#//SeparationOfDuty"/>
+      </eAnnotations>
+    </eClassifiers>
+  </ecore:EPackage>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ecore:EClass" href="http://www.eclipse.org/emf/2002/Ecore#//EObject"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ecore:EClass" href="http://it.unitn.disi.sweng.secbpmn.model/1.0#//SeparationOfDuty"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ecore:EClass" href="http://it.unitn.disi.sweng.secbpmn.model/1.0#//SeparationOfDuty"/>
+  </ocl.ecore:Variable>
+  <ecore:EPackage name="collections">
+    <eClassifiers xsi:type="ocl.ecore:OrderedSetType" name="OrderedSet(SecurityAssociation)" instanceClassName="java.util.LinkedHashSet">
+      <elementType xsi:type="ecore:EClass" href="http://it.unitn.disi.sweng.secbpmn.model/1.0#//SecurityAssociation"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ocl.ecore:SequenceType" name="Sequence(GMTElement)" instanceClassName="java.util.List">
+      <elementType xsi:type="ecore:EClass" href="http://it.unitn.disi.sweng.gmt.model/1.0#//GMTElement"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ocl.ecore:SequenceType" name="Sequence(OclAny)" instanceClassName="java.util.List">
+      <elementType xsi:type="ocl.ecore:AnyType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/OclAny"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ocl.ecore:SequenceType" name="Sequence(Task)" instanceClassName="java.util.List">
+      <elementType xsi:type="ecore:EClass" href="http://it.polimi.isgroup.secbpmn2bc.model/1.0#//Task"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ocl.ecore:SequenceType" name="Sequence(Boolean)" instanceClassName="java.util.List">
+      <elementType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/Boolean"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ocl.ecore:CollectionType" name="Collection(Boolean)" instanceClassName="java.util.Collection">
+      <elementType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/Boolean"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ocl.ecore:SequenceType" name="Sequence(DataObject)" instanceClassName="java.util.List">
+      <elementType xsi:type="ecore:EClass" href="http://it.polimi.isgroup.secbpmn2bc.model/1.0#//DataObject"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ocl.ecore:SequenceType" name="Sequence(OnChainData)" instanceClassName="java.util.List">
+      <elementType xsi:type="ecore:EEnum" href="http://it.polimi.isgroup.secbpmn2bc.model/1.0#//OnChainData"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ocl.ecore:CollectionType" name="Collection(OnChainData)" instanceClassName="java.util.Collection">
+      <elementType xsi:type="ecore:EEnum" href="http://it.polimi.isgroup.secbpmn2bc.model/1.0#//OnChainData"/>
+    </eClassifiers>
+  </ecore:EPackage>
+  <ecore:EPackage name="types">
+    <eClassifiers xsi:type="ocl.ecore:TypeType" name="Task">
+      <referredType xsi:type="ecore:EClass" href="http://it.polimi.isgroup.secbpmn2bc.model/1.0#//Task"/>
+    </eClassifiers>
+    <eClassifiers xsi:type="ocl.ecore:TypeType" name="DataObject">
+      <referredType xsi:type="ecore:EClass" href="http://it.polimi.isgroup.secbpmn2bc.model/1.0#//DataObject"/>
+    </eClassifiers>
+  </ecore:EPackage>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ecore:EClass" href="http://it.unitn.disi.sweng.secbpmn.model/1.0#//SeparationOfDuty"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/Boolean"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/Boolean"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/Boolean"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ecore:EClass" href="http://it.unitn.disi.sweng.secbpmn.model/1.0#//SeparationOfDuty"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="i">
+    <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/Integer"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ecore:EClass" href="http://www.eclipse.org/emf/2002/Ecore#//EObject"/>
+  </ocl.ecore:Variable>
+  <ecore:EAnnotation source="positions">
+    <eAnnotations source="positions.0" references="/0/%">
+      <details key="start" value="199"/>
+      <details key="end" value="284"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.1" references="/0/generateElement">
+      <details key="start" value="285"/>
+      <details key="end" value="1330"/>
+      <details key="line" value="5"/>
+    </eAnnotations>
+    <eAnnotations source="positions.2" references="/0/generateElement/%">
+      <details key="start" value="374"/>
+      <details key="end" value="1318"/>
+      <details key="line" value="7"/>
+    </eAnnotations>
+    <eAnnotations source="positions.3" references="/0/generateElement/%/%">
+      <details key="start" value="704"/>
+      <details key="end" value="705"/>
+      <details key="line" value="9"/>
+    </eAnnotations>
+    <eAnnotations source="positions.4" references="/0/generateElement/%/%.1">
+      <details key="start" value="705"/>
+      <details key="end" value="1311"/>
+      <details key="line" value="10"/>
+    </eAnnotations>
+    <eAnnotations source="positions.5" references="/0/generateElement/%/%.1/%">
+      <details key="start" value="756"/>
+      <details key="end" value="790"/>
+      <details key="line" value="11"/>
+    </eAnnotations>
+    <eAnnotations source="positions.6" references="/0/generateElement/%/%.1/%.1">
+      <details key="start" value="935"/>
+      <details key="end" value="1304"/>
+      <details key="line" value="13"/>
+    </eAnnotations>
+    <eAnnotations source="positions.7" references="/0/generateElement/%/%.1/%.2">
+      <details key="start" value="712"/>
+      <details key="end" value="737"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.8" references="/0/generateElement/%/%.1/%.3">
+      <details key="start" value="746"/>
+      <details key="end" value="753"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.9" references="/0/generateElement/%/%.2">
+      <details key="start" value="379"/>
+      <details key="end" value="700"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.10" references="/0/generateElement/%/%.2/%">
+      <details key="start" value="379"/>
+      <details key="end" value="619"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.11" references="/0/generateElement/%/%.2/%/%">
+      <details key="start" value="379"/>
+      <details key="end" value="533"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.12" references="/0/generateElement/%/%.2/%/%/%">
+      <details key="start" value="379"/>
+      <details key="end" value="450"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.13" references="/0/generateElement/%/%.2/%/%/%/collect">
+      <details key="start" value="379"/>
+      <details key="end" value="443"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.14" references="/0/generateElement/%/%.2/%/%/%/collect/collect">
+      <details key="start" value="379"/>
+      <details key="end" value="426"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.15" references="/0/generateElement/%/%.2/%/%/%/collect/collect/collect">
+      <details key="start" value="379"/>
+      <details key="end" value="410"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.16" references="/0/generateElement/%/%.2/%/%/%/collect/collect/collect/%">
+      <details key="start" value="379"/>
+      <details key="end" value="403"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.17" references="/0/generateElement/%/%.2/%/%/%/collect/collect/collect/%/self">
+      <details key="start" value="379"/>
+      <details key="end" value="383"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.18" references="/0/generateElement/%/%.2/%/%/%/collect/collect/collect/%.1">
+      <details key="start" value="404"/>
+      <details key="end" value="410"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.19" references="/0/generateElement/%/%.2/%/%/%/collect/collect/collect/%.1/temp1">
+      <details key="start" value="-1"/>
+      <details key="end" value="-1"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.20" references="/0/generateElement/%/%.2/%/%/%/collect/collect/collect/temp1">
+      <details key="start" value="-1"/>
+      <details key="end" value="-1"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.21" references="/0/generateElement/%/%.2/%/%/%/collect/collect/%">
+      <details key="start" value="-1"/>
+      <details key="end" value="-1"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.22" references="/0/generateElement/%/%.2/%/%/%/collect/collect/%/temp2">
+      <details key="start" value="-1"/>
+      <details key="end" value="-1"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.23" references="/0/generateElement/%/%.2/%/%/%/collect/collect/%/%">
+      <details key="start" value="421"/>
+      <details key="end" value="425"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.24" references="/0/generateElement/%/%.2/%/%/%/collect/collect/temp2">
+      <details key="start" value="-1"/>
+      <details key="end" value="-1"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.25" references="/0/generateElement/%/%.2/%/%/%/collect/%">
+      <details key="start" value="427"/>
+      <details key="end" value="443"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.26" references="/0/generateElement/%/%.2/%/%/%/collect/%/temp3">
+      <details key="start" value="-1"/>
+      <details key="end" value="-1"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.27" references="/0/generateElement/%/%.2/%/%/%/collect/temp3">
+      <details key="start" value="-1"/>
+      <details key="end" value="-1"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.28" references="/0/generateElement/%/%.2/%/%/%/%">
+      <details key="start" value="446"/>
+      <details key="end" value="450"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.29" references="/0/generateElement/%/%.2/%/%/%.1">
+      <details key="start" value="454"/>
+      <details key="end" value="533"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.30" references="/0/generateElement/%/%.2/%/%/%.1/collect">
+      <details key="start" value="454"/>
+      <details key="end" value="519"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.31" references="/0/generateElement/%/%.2/%/%/%.1/collect/collect">
+      <details key="start" value="454"/>
+      <details key="end" value="507"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.32" references="/0/generateElement/%/%.2/%/%/%.1/collect/collect/collect">
+      <details key="start" value="454"/>
+      <details key="end" value="485"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.33" references="/0/generateElement/%/%.2/%/%/%.1/collect/collect/collect/%">
+      <details key="start" value="454"/>
+      <details key="end" value="478"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.34" references="/0/generateElement/%/%.2/%/%/%.1/collect/collect/collect/%/self">
+      <details key="start" value="454"/>
+      <details key="end" value="458"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.35" references="/0/generateElement/%/%.2/%/%/%.1/collect/collect/collect/%.1">
+      <details key="start" value="479"/>
+      <details key="end" value="485"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.36" references="/0/generateElement/%/%.2/%/%/%.1/collect/collect/collect/%.1/temp4">
+      <details key="start" value="-1"/>
+      <details key="end" value="-1"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.37" references="/0/generateElement/%/%.2/%/%/%.1/collect/collect/collect/temp4">
+      <details key="start" value="-1"/>
+      <details key="end" value="-1"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.38" references="/0/generateElement/%/%.2/%/%/%.1/collect/collect/%">
+      <details key="start" value="-1"/>
+      <details key="end" value="-1"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.39" references="/0/generateElement/%/%.2/%/%/%.1/collect/collect/%/temp5">
+      <details key="start" value="-1"/>
+      <details key="end" value="-1"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.40" references="/0/generateElement/%/%.2/%/%/%.1/collect/collect/%/%">
+      <details key="start" value="496"/>
+      <details key="end" value="506"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.41" references="/0/generateElement/%/%.2/%/%/%.1/collect/collect/temp5">
+      <details key="start" value="-1"/>
+      <details key="end" value="-1"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.42" references="/0/generateElement/%/%.2/%/%/%.1/collect/%">
+      <details key="start" value="508"/>
+      <details key="end" value="519"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.43" references="/0/generateElement/%/%.2/%/%/%.1/collect/%/temp6">
+      <details key="start" value="-1"/>
+      <details key="end" value="-1"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.44" references="/0/generateElement/%/%.2/%/%/%.1/collect/temp6">
+      <details key="start" value="-1"/>
+      <details key="end" value="-1"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.45" references="/0/generateElement/%/%.2/%/%/%.1/%">
+      <details key="start" value="522"/>
+      <details key="end" value="533"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.46" references="/0/generateElement/%/%.2/%/%.1">
+      <details key="start" value="538"/>
+      <details key="end" value="619"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.47" references="/0/generateElement/%/%.2/%/%.1/collect">
+      <details key="start" value="538"/>
+      <details key="end" value="603"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.48" references="/0/generateElement/%/%.2/%/%.1/collect/collect">
+      <details key="start" value="538"/>
+      <details key="end" value="591"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.49" references="/0/generateElement/%/%.2/%/%.1/collect/collect/collect">
+      <details key="start" value="538"/>
+      <details key="end" value="569"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.50" references="/0/generateElement/%/%.2/%/%.1/collect/collect/collect/%">
+      <details key="start" value="538"/>
+      <details key="end" value="562"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.51" references="/0/generateElement/%/%.2/%/%.1/collect/collect/collect/%/self">
+      <details key="start" value="538"/>
+      <details key="end" value="542"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.52" references="/0/generateElement/%/%.2/%/%.1/collect/collect/collect/%.1">
+      <details key="start" value="563"/>
+      <details key="end" value="569"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.53" references="/0/generateElement/%/%.2/%/%.1/collect/collect/collect/%.1/temp7">
+      <details key="start" value="-1"/>
+      <details key="end" value="-1"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.54" references="/0/generateElement/%/%.2/%/%.1/collect/collect/collect/temp7">
+      <details key="start" value="-1"/>
+      <details key="end" value="-1"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.55" references="/0/generateElement/%/%.2/%/%.1/collect/collect/%">
+      <details key="start" value="-1"/>
+      <details key="end" value="-1"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.56" references="/0/generateElement/%/%.2/%/%.1/collect/collect/%/temp8">
+      <details key="start" value="-1"/>
+      <details key="end" value="-1"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.57" references="/0/generateElement/%/%.2/%/%.1/collect/collect/%/%">
+      <details key="start" value="580"/>
+      <details key="end" value="590"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.58" references="/0/generateElement/%/%.2/%/%.1/collect/collect/temp8">
+      <details key="start" value="-1"/>
+      <details key="end" value="-1"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.59" references="/0/generateElement/%/%.2/%/%.1/collect/%">
+      <details key="start" value="592"/>
+      <details key="end" value="603"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.60" references="/0/generateElement/%/%.2/%/%.1/collect/%/temp9">
+      <details key="start" value="-1"/>
+      <details key="end" value="-1"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.61" references="/0/generateElement/%/%.2/%/%.1/collect/temp9">
+      <details key="start" value="-1"/>
+      <details key="end" value="-1"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.62" references="/0/generateElement/%/%.2/%/%.1/%">
+      <details key="start" value="606"/>
+      <details key="end" value="619"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.63" references="/0/generateElement/%/%.2/%.1">
+      <details key="start" value="624"/>
+      <details key="end" value="700"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.64" references="/0/generateElement/%/%.2/%.1/collect">
+      <details key="start" value="624"/>
+      <details key="end" value="689"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.65" references="/0/generateElement/%/%.2/%.1/collect/collect">
+      <details key="start" value="624"/>
+      <details key="end" value="677"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.66" references="/0/generateElement/%/%.2/%.1/collect/collect/collect">
+      <details key="start" value="624"/>
+      <details key="end" value="655"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.67" references="/0/generateElement/%/%.2/%.1/collect/collect/collect/%">
+      <details key="start" value="624"/>
+      <details key="end" value="648"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.68" references="/0/generateElement/%/%.2/%.1/collect/collect/collect/%/self">
+      <details key="start" value="624"/>
+      <details key="end" value="628"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.69" references="/0/generateElement/%/%.2/%.1/collect/collect/collect/%.1">
+      <details key="start" value="649"/>
+      <details key="end" value="655"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.70" references="/0/generateElement/%/%.2/%.1/collect/collect/collect/%.1/temp10">
+      <details key="start" value="-1"/>
+      <details key="end" value="-1"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.71" references="/0/generateElement/%/%.2/%.1/collect/collect/collect/temp10">
+      <details key="start" value="-1"/>
+      <details key="end" value="-1"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.72" references="/0/generateElement/%/%.2/%.1/collect/collect/%">
+      <details key="start" value="-1"/>
+      <details key="end" value="-1"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.73" references="/0/generateElement/%/%.2/%.1/collect/collect/%/temp11">
+      <details key="start" value="-1"/>
+      <details key="end" value="-1"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.74" references="/0/generateElement/%/%.2/%.1/collect/collect/%/%">
+      <details key="start" value="666"/>
+      <details key="end" value="676"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.75" references="/0/generateElement/%/%.2/%.1/collect/collect/temp11">
+      <details key="start" value="-1"/>
+      <details key="end" value="-1"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.76" references="/0/generateElement/%/%.2/%.1/collect/%">
+      <details key="start" value="678"/>
+      <details key="end" value="689"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.77" references="/0/generateElement/%/%.2/%.1/collect/%/temp12">
+      <details key="start" value="-1"/>
+      <details key="end" value="-1"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.78" references="/0/generateElement/%/%.2/%.1/collect/temp12">
+      <details key="start" value="-1"/>
+      <details key="end" value="-1"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.79" references="/0/generateElement/%/%.2/%.1/%">
+      <details key="start" value="692"/>
+      <details key="end" value="700"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.80" references="/0/generateElement/aSeparationOfDuty">
+      <details key="start" value="318"/>
+      <details key="end" value="354"/>
+      <details key="line" value="5"/>
+    </eAnnotations>
+  </ecore:EAnnotation>
+</xmi:XMI>

@@ -1,0 +1,36 @@
+[comment encoding = UTF-8 /]
+[module Contract('http://it.polimi.isgroup.secbpmn2bc.model/1.0',
+ 'http://it.unitn.disi.sweng.gmt.model/1.0',
+ 'http://it.unitn.disi.sweng.secbpmn.model/1.0')]
+
+[comment: it generates a Contract class whenever it finds a task that is different from a manual one, i.e., eligible for the execution on Corda R3/]
+[template public generateElement(aTask : Task)]
+[comment @main/]
+[if(aTask.type <> TaskType::Manual and aTask.OnChainExecution = true)]
+	[file (capitalizeString(aTask, aTask.name).replaceAll(' ','').replaceAll('-','') + 'Contract' + '.java', false, 'UTF-8')]
+	public class [capitalizeString(aTask, aTask.name).replaceAll(' ','').replaceAll('-','') + 'Contract'/]{
+		@Override
+		public class verify(){
+		//custom verification logic here
+		}
+	}
+	[/file] 
+[comment: it can happen that a process only enforces the communication logic thus there exist no tasks enforceable with flows and whose transactions have to be verified with contracts/]
+[elseif((aTask->any(aTask.type <> TaskType::Manual))->any(aTask.OnChainExecution = true)->isEmpty())]
+	[file ('Contract' + '.java', false, 'UTF-8')]
+	public class ['Contract'/]{
+		@Override
+		public class verify(){
+		//standard verification logic here...
+		}
+	}
+	[/file]
+[/if]
+[/template]
+
+
+[comment: java service wrapper supporting the camel case translation for the generated java classes/]
+[query public capitalizeString(arg0 : secbpmn::SecBpmnElement, arg1 : String) : String
+	= invoke('org.eclipse.acceleo.module.sample.main.myservicewrapper',
+    'capitalizeString(it.unitn.disi.sweng.secbpmn.model.SecBpmnElement, java.lang.String)', Sequence{arg0, arg1})
+/]

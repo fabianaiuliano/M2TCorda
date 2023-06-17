@@ -1,0 +1,55 @@
+[comment encoding = UTF-8 /]
+[module Availability('http://it.polimi.isgroup.secbpmn2bc.model/1.0', 'http://it.unitn.disi.sweng.gmt.model/1.0', 'http://it.unitn.disi.sweng.secbpmn.model/1.0')]
+
+
+[template public generateElement(anAvailability : Availability)]
+[comment @main/]
+[file ('Availability.java', false, 'UTF-8')]
+import java.net.HttpURLConnection; 
+import java.net.URL; 
+import java.util.Timer; 
+import java.util.TimerTask; 
+import net.corda.core.node.CordaPluginRegistry; 
+import net.corda.core.node.PluginServiceHub;  
+
+public class HealthOrSwitch implements CordaPluginRegistry { 
+
+	public void initialize(PluginServiceHub services) { 
+	[comment]// e.g. URL health check to expose (to be suitably customized)[/comment]
+	String healthCheckUrl = "http://localhost:8080/health"; 
+	
+	[comment]//milliseconds between a check and the other [/comment]
+	long healthCheckInterval = 5000; 
+
+	[comment]// Timer initialization [/comment]
+	Timer timer = new Timer();
+ 
+	timer.schedule(new TimerTask() { 
+		@Override 
+		public void run() { 
+			try { 
+				[comment]// Executes the health check [/comment]
+				URL url = new URL(healthCheckUrl); 
+				HttpURLConnection con =(HttpURLConnection) url.openConnection(); 
+                con.setRequestMethod("GET"); 
+				int responseCode = con.getResponseCode(); 
+                   	if (responseCode != 200) { 
+					[comment]// If the health check fails, switch to the replica [/comment]
+                      	switch(); 
+                    } 
+             	} catch (Exception e) { 
+					[comment]// If an exception occur meanwhile the check, switch anyway  [/comment]
+                	switch(); 
+              	} 
+          } 
+      }, 0, healthCheckInterval); 
+    } 
+
+    private void switch() { 
+		[comment]// Implementation of the switch to the backup node [/comment]
+		[comment]// ... [/comment]
+    } 
+} 
+ 
+[/file]
+[/template]

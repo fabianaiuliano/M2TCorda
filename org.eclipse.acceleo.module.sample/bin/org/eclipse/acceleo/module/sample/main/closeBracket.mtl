@@ -1,0 +1,13 @@
+[comment encoding = UTF-8 /]
+[module closeBracket('http://it.polimi.isgroup.secbpmn2bc.model/1.0', 'http://it.unitn.disi.sweng.gmt.model/1.0', 'http://it.unitn.disi.sweng.secbpmn.model/1.0')]
+[query public capitalizeString(arg0 : secbpmn::SecBpmnElement, arg1 : String) : String
+	= invoke('org.eclipse.acceleo.module.sample.main.myservicewrapper', 'capitalizeString(it.unitn.disi.sweng.secbpmn.model.SecBpmnElement, java.lang.String)', Sequence{arg0, arg1})
+/]
+
+[comment: just prints the closing parenthesis /]
+[template public generateElement(aParticipant : Participant)]
+[comment @main/]
+[file (aParticipant.name.replaceAll(' ','').replaceAll('-','').replaceAll('\'','') + 'Flow' + '.java', true, 'UTF-8')]
+}
+[/file]
+[/template]

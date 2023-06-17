@@ -1,0 +1,79 @@
+[comment encoding = UTF-8 /]
+[module Authenticity('http://it.polimi.isgroup.secbpmn2bc.model/1.0', 'http://it.unitn.disi.sweng.gmt.model/1.0', 'http://it.unitn.disi.sweng.secbpmn.model/1.0')]
+
+
+[comment: java service wrapper supporting the camel case translation for the generated java classes /]
+[query public capitalizeString(arg0 : secbpmn::SecBpmnElement, arg1 : String) : String
+	= invoke('org.eclipse.acceleo.module.sample.main.myservicewrapper','capitalizeString(it.unitn.disi.sweng.secbpmn.model.SecBpmnElement, java.lang.String)', Sequence{arg0, arg1})/]
+
+
+[template public generateElement(anAuthenticity : Authenticity)]
+[comment @main/]
+[if(self.eContainer(Task).OnChainExecution = true)]
+
+[file(capitalizeString(anAuthenticity, self.eContainer(Task).name).replaceAll(' ','').replaceAll('-','').replaceAll('\'','') + 'Authenticity' + '.java', false, 'UTF-8')]
+public class AuthenticityAct {
+	public static void verifyIssuerIdentity(LedgerTransaction tx, ServiceHub serviceHub) throws CertificateVerificationException {
+	Party issuer = tx.getCommand(customCommand).getSigners().get(0);
+	PartyAndCertificate issuerCert = serviceHub.getIdentityService().getCertificateFromKey(issuer);
+		
+		if (issuerCert = null){
+			System.out.println("Unknown party");
+		}
+		else {
+			//Verify the certificate path is valid
+			issuerCert.verify();
+		}
+	}
+}
+[/file]
+
+[elseif(self.eContainer(Task).OnChainExecution = false)]
+[file(capitalizeString(anAuthenticity, self.eContainer(Task).name).replaceAll(' ','').replaceAll('-','').replaceAll('\'','') + 'Authenticity' + '.java', false, 'UTF-8')]
+Enforcement not possible for off-chain activities!
+[/file]
+[/if]
+
+[if( self.eContainer(DataObject).OnChainData = 'encrypted' or
+self.eContainer(DataObject).OnChainData = 'unencrypted' or self.eContainer(DataObject).OnChainData = 'digest')]
+[file(capitalizeString(anAuthenticity, self.eContainer(DataObject).name).replaceAll(' ','').replaceAll('-','').replaceAll('\'','') + 'Authenticity' + '.java', false, 'UTF-8')]
+public class AuthenticityDO {
+	public static boolean verifyStateAuthenticity(MyState state, Set<PublicKey> requiredSigners) throws 
+	NoSuchAlgorithmException, InvalidKeyException, SignatureException{
+	//get the state’s data and hash it
+	byte['['/][']'/] stateData = state.toByte();
+	MessageDigest md = MessageDigest.getInstance("SHA256");
+	byte['['/][']'/] stateHash = md.digest(stateData);
+	// get the list of public keys that signed the transaction
+	List<PublicKey> signers = state.getParticipants().stream().map(
+	Party>getOwningKey()).collect(Collectors.toList());
+
+	//verify that the required signers have signed the transaction
+	if (!signers.containsAll(requiredSigners)) {
+		return false;
+	}
+
+	//verify the signature using the state’s hash and public keys
+	Signature signature = Signature.getInstance("SHA256withRSA");
+	for (PublicKey signer : signers) {
+	signature.initVerify(signer);
+	signature.update(stateHash);
+    	if (!signature.verify(state.getSignature().get(signer))) {
+			return false;
+		}
+	}
+	//the state has not been modified by unauthorized parties
+	return true;
+	}
+}
+[/file]
+
+[elseif(self.eContainer(DataObject).OnChainData = 'none')]
+
+[file(capitalizeString(anAuthenticity, self.eContainer(DataObject).name).replaceAll(' ','').replaceAll('-','').replaceAll('\'','') + 'Authenticity' + '.java', false, 'UTF-8')]
+Enforcement not possible for off-chain data!
+[/file]
+
+[/if]
+
+[/template]

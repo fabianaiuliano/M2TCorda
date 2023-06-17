@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xmi:XMI xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:mtl="http://www.eclipse.org/acceleo/mtl/3.0" xmlns:ocl.ecore="http://www.eclipse.org/ocl/1.1.0/Ecore">
+  <mtl:Module name="Availability" nsURI="org::eclipse::acceleo::module::sample::main::Availability" startHeaderPosition="29" endHeaderPosition="273">
+    <input>
+      <takesTypesFrom href="http://it.polimi.isgroup.secbpmn2bc.model/1.0#/"/>
+    </input>
+    <input>
+      <takesTypesFrom href="http://it.unitn.disi.sweng.gmt.model/1.0#/"/>
+    </input>
+    <input>
+      <takesTypesFrom href="http://it.unitn.disi.sweng.secbpmn.model/1.0#/"/>
+    </input>
+    <ownedModuleElement xsi:type="mtl:Template" name="generateElement" visibility="Public" main="true">
+      <body xsi:type="mtl:FileBlock" openMode="OverWrite">
+        <body xsi:type="ocl.ecore:StringLiteralExp" stringSymbol="import java.net.HttpURLConnection; &#xA;import java.net.URL; &#xA;import java.util.Timer; &#xA;import java.util.TimerTask; &#xA;import net.corda.core.node.CordaPluginRegistry; &#xA;import net.corda.core.node.PluginServiceHub;  &#xA;&#xA;public class HealthOrSwitch implements CordaPluginRegistry { &#xA;&#xA;&#x9;public void initialize(PluginServiceHub services) { &#xA;"/>
+        <body xsi:type="ocl.ecore:StringLiteralExp" stringSymbol="&#x9;String healthCheckUrl = &quot;http://localhost:8080/health&quot;; &#xA;&#x9;&#xA;"/>
+        <body xsi:type="ocl.ecore:StringLiteralExp" stringSymbol="&#x9;long healthCheckInterval = 5000; &#xA;&#xA;"/>
+        <body xsi:type="ocl.ecore:StringLiteralExp" stringSymbol="&#x9;Timer timer = new Timer();&#xA; &#xA;&#x9;timer.schedule(new TimerTask() { &#xA;&#x9;&#x9;@Override &#xA;&#x9;&#x9;public void run() { &#xA;&#x9;&#x9;&#x9;try { &#xA;"/>
+        <body xsi:type="ocl.ecore:StringLiteralExp" stringSymbol="&#x9;&#x9;&#x9;&#x9;URL url = new URL(healthCheckUrl); &#xA;&#x9;&#x9;&#x9;&#x9;HttpURLConnection con =(HttpURLConnection) url.openConnection(); &#xA;                con.setRequestMethod(&quot;GET&quot;); &#xA;&#x9;&#x9;&#x9;&#x9;int responseCode = con.getResponseCode(); &#xA;                   &#x9;if (responseCode != 200) { &#xA;"/>
+        <body xsi:type="ocl.ecore:StringLiteralExp" stringSymbol="                      &#x9;switch(); &#xA;                    } &#xA;             &#x9;} catch (Exception e) { &#xA;"/>
+        <body xsi:type="ocl.ecore:StringLiteralExp" stringSymbol="                &#x9;switch(); &#xA;              &#x9;} &#xA;          } &#xA;      }, 0, healthCheckInterval); &#xA;    } &#xA;&#xA;    private void switch() { &#xA;"/>
+        <body xsi:type="ocl.ecore:StringLiteralExp" stringSymbol="    } &#xA;} &#xA; &#xA;"/>
+        <fileUrl xsi:type="ocl.ecore:StringLiteralExp" stringSymbol="Availability.java">
+          <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+        </fileUrl>
+        <charset xsi:type="ocl.ecore:StringLiteralExp" stringSymbol="UTF-8">
+          <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+        </charset>
+      </body>
+      <parameter name="anAvailability">
+        <eType xsi:type="ecore:EClass" href="http://it.unitn.disi.sweng.secbpmn.model/1.0#//Availability"/>
+      </parameter>
+    </ownedModuleElement>
+  </mtl:Module>
+  <ecore:EPackage name="additions">
+    <eClassifiers xsi:type="ecore:EClass" name="oclstdlib_String_Class">
+      <eAnnotations source="http://www.eclipse.org/ocl/1.1.0/OCL">
+        <references href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+      </eAnnotations>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="oclstdlib_Integer_Class">
+      <eAnnotations source="http://www.eclipse.org/ocl/1.1.0/OCL">
+        <references href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/Integer"/>
+      </eAnnotations>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="oclstdlib_Real_Class">
+      <eAnnotations source="http://www.eclipse.org/ocl/1.1.0/OCL">
+        <references href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/Real"/>
+      </eAnnotations>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="ecore_EObject_Class">
+      <eAnnotations source="http://www.eclipse.org/ocl/1.1.0/OCL">
+        <references href="http://www.eclipse.org/emf/2002/Ecore#//EObject"/>
+      </eAnnotations>
+      <eOperations name="generateElement">
+        <eAnnotations source="http://www.eclipse.org/ocl/1.1.0/OCL">
+          <contents xsi:type="ocl.ecore:Constraint"/>
+        </eAnnotations>
+        <eAnnotations source="MTL" references="/0/generateElement"/>
+        <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+        <eParameters name="anAvailability">
+          <eType xsi:type="ecore:EClass" href="http://it.unitn.disi.sweng.secbpmn.model/1.0#//Availability"/>
+        </eParameters>
+      </eOperations>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="oclstdlib_OclAny_Class">
+      <eAnnotations source="http://www.eclipse.org/ocl/1.1.0/OCL">
+        <references href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/OclAny"/>
+      </eAnnotations>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="oclstdlib_Collection(T)_Class">
+      <eAnnotations source="http://www.eclipse.org/ocl/1.1.0/OCL">
+        <references href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/Collection(T)"/>
+      </eAnnotations>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="oclstdlib_Sequence(T)_Class">
+      <eAnnotations source="http://www.eclipse.org/ocl/1.1.0/OCL">
+        <references href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/Sequence(T)"/>
+      </eAnnotations>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="oclstdlib_OrderedSet(T)_Class">
+      <eAnnotations source="http://www.eclipse.org/ocl/1.1.0/OCL">
+        <references href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/OrderedSet(T)"/>
+      </eAnnotations>
+    </eClassifiers>
+    <eClassifiers xsi:type="ecore:EClass" name="secbpmn_Availability_Class">
+      <eAnnotations source="http://www.eclipse.org/ocl/1.1.0/OCL">
+        <references href="http://it.unitn.disi.sweng.secbpmn.model/1.0#//Availability"/>
+      </eAnnotations>
+    </eClassifiers>
+  </ecore:EPackage>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ecore:EClass" href="http://www.eclipse.org/emf/2002/Ecore#//EObject"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ecore:EClass" href="http://it.unitn.disi.sweng.secbpmn.model/1.0#//Availability"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ocl.ecore:PrimitiveType" href="http://www.eclipse.org/ocl/1.1.0/oclstdlib.ecore#/0/String"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ecore:EClass" href="http://it.unitn.disi.sweng.secbpmn.model/1.0#//Availability"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ecore:EClass" href="http://it.unitn.disi.sweng.secbpmn.model/1.0#//Availability"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ecore:EClass" href="http://it.unitn.disi.sweng.secbpmn.model/1.0#//Availability"/>
+  </ocl.ecore:Variable>
+  <ocl.ecore:Variable name="self">
+    <eType xsi:type="ecore:EClass" href="http://www.eclipse.org/emf/2002/Ecore#//EObject"/>
+  </ocl.ecore:Variable>
+  <ecore:EAnnotation source="positions">
+    <eAnnotations source="positions.0" references="/0/generateElement">
+      <details key="start" value="194"/>
+      <details key="end" value="1875"/>
+      <details key="line" value="5"/>
+    </eAnnotations>
+    <eAnnotations source="positions.1" references="/0/generateElement/%">
+      <details key="start" value="276"/>
+      <details key="end" value="1863"/>
+      <details key="line" value="7"/>
+    </eAnnotations>
+    <eAnnotations source="positions.2" references="/0/generateElement/%/%">
+      <details key="start" value="321"/>
+      <details key="end" value="647"/>
+      <details key="line" value="8"/>
+    </eAnnotations>
+    <eAnnotations source="positions.3" references="/0/generateElement/%/%.1">
+      <details key="start" value="730"/>
+      <details key="end" value="790"/>
+      <details key="line" value="19"/>
+    </eAnnotations>
+    <eAnnotations source="positions.4" references="/0/generateElement/%/%.2">
+      <details key="start" value="856"/>
+      <details key="end" value="892"/>
+      <details key="line" value="22"/>
+    </eAnnotations>
+    <eAnnotations source="positions.5" references="/0/generateElement/%/%.3">
+      <details key="start" value="937"/>
+      <details key="end" value="1048"/>
+      <details key="line" value="25"/>
+    </eAnnotations>
+    <eAnnotations source="positions.6" references="/0/generateElement/%/%.4">
+      <details key="start" value="1101"/>
+      <details key="end" value="1352"/>
+      <details key="line" value="32"/>
+    </eAnnotations>
+    <eAnnotations source="positions.7" references="/0/generateElement/%/%.5">
+      <details key="start" value="1429"/>
+      <details key="end" value="1525"/>
+      <details key="line" value="38"/>
+    </eAnnotations>
+    <eAnnotations source="positions.8" references="/0/generateElement/%/%.6">
+      <details key="start" value="1611"/>
+      <details key="end" value="1742"/>
+      <details key="line" value="42"/>
+    </eAnnotations>
+    <eAnnotations source="positions.9" references="/0/generateElement/%/%.7">
+      <details key="start" value="1844"/>
+      <details key="end" value="1856"/>
+      <details key="line" value="51"/>
+    </eAnnotations>
+    <eAnnotations source="positions.10" references="/0/generateElement/%/%.8">
+      <details key="start" value="283"/>
+      <details key="end" value="302"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.11" references="/0/generateElement/%/%.9">
+      <details key="start" value="311"/>
+      <details key="end" value="318"/>
+      <details key="line" value="0"/>
+    </eAnnotations>
+    <eAnnotations source="positions.12" references="/0/generateElement/anAvailability">
+      <details key="start" value="227"/>
+      <details key="end" value="256"/>
+      <details key="line" value="5"/>
+    </eAnnotations>
+  </ecore:EAnnotation>
+</xmi:XMI>

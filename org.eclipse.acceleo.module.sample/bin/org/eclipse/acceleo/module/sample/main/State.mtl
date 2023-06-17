@@ -1,0 +1,30 @@
+[comment encoding = UTF-8 /]
+[module State('http://it.polimi.isgroup.secbpmn2bc.model/1.0',
+ 'http://it.unitn.disi.sweng.gmt.model/1.0',
+ 'http://it.unitn.disi.sweng.secbpmn.model/1.0')]
+
+[comment: java service wrapper supporting the camel case translation for the generated java classes /]
+[query public capitalizeString(arg0 : secbpmn::SecBpmnElement, arg1 : String) : String
+	= invoke('org.eclipse.acceleo.module.sample.main.myservicewrapper',
+    'capitalizeString(it.unitn.disi.sweng.secbpmn.model.SecBpmnElement, java.lang.String)',
+    Sequence{arg0, arg1})
+/] 
+
+[comment: it generates a State class implementing the corresponding ContractState interface on Corda R3 whenever it finds a Data Object/]
+[template public generateElement(aDataObject : DataObject)]
+[comment @main/]
+	[file (capitalizeString(aDataObject, aDataObject.name).replaceAll(' ','').replaceAll('\'','') +
+	'State'+'.java', false, 'UTF-8')]
+	@BelongsToContract(Contract.class)
+	public class [(capitalizeString(aDataObject, aDataObject.name).replaceAll(' ','').replace('', '').replaceAll('\'','') +
+	'State')/] implements ContractState{
+	    //custom properties...
+		private final List<AbstractParty> participants; 
+	    public [(capitalizeString(aDataObject, aDataObject.name).replaceAll(' ','').replaceAll('\'','') +'State')/]
+		(..., List<AbstractParty> participants){
+			//...
+	        this.participants = participants;
+	    }
+	}
+	[/file]
+[/template]

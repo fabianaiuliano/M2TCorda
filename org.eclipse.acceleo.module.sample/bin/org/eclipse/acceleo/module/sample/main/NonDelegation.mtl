@@ -1,0 +1,29 @@
+[comment encoding = UTF-8 /]
+[module NonDelegation('http://it.polimi.isgroup.secbpmn2bc.model/1.0', 'http://it.unitn.disi.sweng.gmt.model/1.0', 'http://it.unitn.disi.sweng.secbpmn.model/1.0')]
+
+
+[comment: java service wrapper supporting the camel case translation for the generated java classes /]
+[query public capitalizeString(arg0 : secbpmn::SecBpmnElement, arg1 : String) : String
+	= invoke('org.eclipse.acceleo.module.sample.main.myservicewrapper','capitalizeString(it.unitn.disi.sweng.secbpmn.model.SecBpmnElement, java.lang.String)', Sequence{arg0, arg1})/]
+
+
+[template public generateElement(aNonDelegation : NonDelegation)]
+[comment @main/]
+[if(self.eContainer(Task).OnChainExecution = true)]
+[file (capitalizeString(aNonDelegation, self.eContainer(Task).name).replaceAll(' ','').replaceAll('-','').replaceAll('\'','') +'NonDelegation.java', false, 'UTF-8')]
+public class NonDelegation {
+	public boolean NonDelegation(){
+	FlowLogic<MyFlowLogicReturnType> flowLogic = this.getFlowLogic();
+	FlowSession otherPartySession = flowLogic.getCounterpartySession();
+		if (!(allowedNodeList.contains(otherPartySession))) {
+			throw IllegalStateException("Flow must be run by an authorized node");
+		}
+	}
+}
+[/file]
+[elseif(self.eContainer(Task).OnChainExecution = false)]
+[file (capitalizeString(aNonDelegation, self.eContainer(Task).name).replaceAll(' ','').replaceAll('-','').replaceAll('\'','') +'NonDelegation.java', false, 'UTF-8')]
+Enforcement not possible for off-chain activities!
+[/file]
+[/if]
+[/template]

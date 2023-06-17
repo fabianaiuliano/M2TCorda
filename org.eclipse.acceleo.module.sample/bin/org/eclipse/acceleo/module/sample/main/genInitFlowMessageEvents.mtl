@@ -1,0 +1,49 @@
+[comment encoding = UTF-8 /]
+[module genInitFlowMessageEvents('http://it.polimi.isgroup.secbpmn2bc.model/1.0', 'http://it.unitn.disi.sweng.gmt.model/1.0', 'http://it.unitn.disi.sweng.secbpmn.model/1.0')]
+
+[comment: java service wrapper supporting the camel case translation for the generated java classes /]
+[query public capitalizeString(arg0 : secbpmn::SecBpmnElement, arg1 : String) : String
+	= invoke('org.eclipse.acceleo.module.sample.main.myservicewrapper', 'capitalizeString(it.unitn.disi.sweng.secbpmn.model.SecBpmnElement, java.lang.String)', Sequence{arg0, arg1})
+/]
+
+[comment: it generates an Initiator flow for the eligible Events in the corresponding Flow class defined in Flow.mtl /]
+[template public generateElement(anEvent : Event)]
+[comment @main/]
+[comment 1st clause: checks for Event of the type 'Message'; 
+		 2nd clause: checks for the absence of incoming connections (which would make it not eligible to be an Initiator according to the mapping);
+		 3rd clause: checks that the Event actually has outgoing connections (in order to be an Initiator it should be the source of a Message Flow); 
+		 it suffices to make this check without filtering since we've already specified the Event should be of type 'Message', thus we expect a message 
+		 to have just incoming/outgoing arcs of type 'MessageFlow' by default. /]
+[comment]anEvent.definition = EventDefinition::Message and anEvent.incomingConnections.source.siblings(Lane) = anEvent.siblings(Lane)[/comment]
+
+[for(anEvent.outgoingConnections->filter(MessageFlow))]
+[for(anEvent.incomingConnections)]
+[if(self.source.siblings(Lane) = anEvent.siblings(Lane))]
+[if(anEvent.eContainer(Lane) = null)]
+[file(capitalizeString(anEvent, anEvent.eContainer(Process).eContainer(Participant).name).replaceAll(' ','').replaceAll('-','').replaceAll('\'','') + 'Flow' + '.java', true, 'UTF-8')]
+@InitiatingFlow
+@StartableByRPC
+public class [capitalizeString(anEvent, anEvent.name).replaceAll(' ','').replaceAll('-','').replaceAll('\'','') + 'InitiatorFlow'/] extends FlowLogic<SignedTransaction>{
+private final Party counterparty;
+	public InitiatorFlow(Party counterparty){
+	this.counterparty = counterparty;
+	}
+}
+[/file]
+[elseif(anEvent.eContainer(Lane) <> null)]
+[file (capitalizeString(anEvent, anEvent.eContainer(Lane).name).replaceAll(' ','').replaceAll('-','').replaceAll('\'','') + 'Flow' + '.java', true, 'UTF-8')]				
+@InitiatingFlow
+@StartableByRPC
+public class [capitalizeString(anEvent, anEvent.name).replaceAll(' ','').replaceAll('-','').replaceAll('\'','') + 'InitiatorFlow'/] extends FlowLogic<SignedTransaction>{
+private final Party counterparty;
+	public InitiatorFlow(Party counterparty){
+	this.counterparty = counterparty;
+	}
+}
+[/file]
+[/if]
+[/if]
+[/for]
+[/for]
+
+[/template]

@@ -1,0 +1,70 @@
+[comment encoding = UTF-8 /]
+[module Integrity('http://it.polimi.isgroup.secbpmn2bc.model/1.0', 'http://it.unitn.disi.sweng.gmt.model/1.0', 'http://it.unitn.disi.sweng.secbpmn.model/1.0')]
+
+
+[comment: java service wrapper supporting the camel case translation for the generated java classes /]
+[query public capitalizeString(arg0 : secbpmn::SecBpmnElement, arg1 : String) : String
+	= invoke('org.eclipse.acceleo.module.sample.main.myservicewrapper','capitalizeString(it.unitn.disi.sweng.secbpmn.model.SecBpmnElement, java.lang.String)', Sequence{arg0, arg1})/]
+
+
+[template public generateElement(anIntegrity : Integrity)]
+[comment @main/]
+[if(self.eContainer(Task).OnChainExecution = true)]
+[file (capitalizeString(anIntegrity, self.eContainer(Task).name).replaceAll(' ','').replaceAll('-','').replaceAll('\'','') +'Integrity.java', false, 'UTF-8')]
+public class IntegrityAct extends FlowLogic<String> {
+	
+	@Override
+	public String call() throws FlowException {
+	//Check the version number of the CorDapp
+	String expectedVersion = "1.0"; //type your desired version
+	String actualVersion = getVersionFromProperties();
+
+	if(!expectedVersion.equals(actualVersion)){
+		throw new FlowException("All parties must use the same version of the CorDapp.");
+	}
+
+}
+	private String getVersionFromProperties(){
+	InputStream stream = getClass().getClassLoader().getResourceAsStream("META-INF/version.properties");
+	Properties properties = new Properties();
+	try{
+		properties.load(stream);
+	} catch (IOException e){
+		throw new RuntimeException("Unable to load version properties.");
+	}
+	
+	return properties.getProperty("version");
+	
+	}
+}
+[/file]
+[elseif(self.eContainer(Task).OnChainExecution = false)]
+[file (capitalizeString(anIntegrity, self.eContainer(Task).name).replaceAll(' ','').replaceAll('-','').replaceAll('\'','') +'Integrity.java', false, 'UTF-8')]
+Enforcement not possible for off-chain activities!
+[/file]
+[/if]
+[comment]Data Object branch[/comment]
+[if(self.eContainer(DataObject).OnChainData = OnChainData::Encrypted or
+ self.eContainer(DataObject).OnChainData = OnChainData::Unencrypted or 
+ self.eContainer(DataObject).OnChainData = OnChainData::Digest)]
+[file (capitalizeString(anIntegrity, self.eContainer(DataObject).name).replaceAll(' ','').replaceAll('-','').replaceAll('\'','') 
++'Integrity.java', false, 'UTF-8')]
+public class IntegrityDO {
+	public static boolean ensureDataIntegrity(tx) {
+	List<Properties> properties = tx.getOutputs.getProperties();
+		for (p : properties) {
+			while (p.getType() == SecureHash) {
+				return true;
+			}
+		}
+	return false;
+	}
+}
+[/file]
+[elseif(self.eContainer(DataObject).OnChainData = OnChainData::None or self.eContainer(DataObject).OnChainData = OnChainData::Undefined )]
+[file (capitalizeString(anIntegrity, self.eContainer(DataObject).name).replaceAll(' ','').replaceAll('-','').replaceAll('\'','') 
++'Integrity.java', false, 'UTF-8')]
+Enforcement not possible for off-chain data!
+[/file]
+[/if]
+[/template]
