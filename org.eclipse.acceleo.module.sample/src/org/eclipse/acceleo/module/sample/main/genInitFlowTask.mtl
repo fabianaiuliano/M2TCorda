@@ -1,0 +1,76 @@
+[comment encoding = UTF-8 /]
+[module genInitFlowTask('http://it.polimi.isgroup.secbpmn2bc.model/1.0', 'http://it.unitn.disi.sweng.gmt.model/1.0', 'http://it.unitn.disi.sweng.secbpmn.model/1.0')]
+[comment][import org::eclipse::acceleo::module::sample::main::Flow/][/comment]
+[comment: java service wrapper supporting the camel case translation for the generated java classes /]
+[query public capitalizeString(arg0 : secbpmn::SecBpmnElement, arg1 : String) : String
+	= invoke('org.eclipse.acceleo.module.sample.main.myservicewrapper', 'capitalizeString(it.unitn.disi.sweng.secbpmn.model.SecBpmnElement, java.lang.String)', Sequence{arg0, arg1})
+/]
+
+[comment: it generates an Initiator flow for the eligible Tasks in the corresponding Flow class defined in Flow.mtl /]
+[template public generateElement(aTask : Task)]
+[comment @main/]
+[comment 1st clause: checks for the OnChainExecution property to be 'true' and Tasks having a type different from 'Manual'; 
+		 2nd clause: checks for the presence of incoming connections but just under the condition that their source should come from the same lane
+		 of the Task (i.e., not from a different entity from that performing the task otherwise it would not be eligible to be an Initiator according to the mapping)
+		 3rd clause: checks that at least one of the 2 conditions is ensured, respectively, the source of the Task's incoming connection being a StartEvent,
+		 the Task having outgoing connections towards a different lane from the one it belong/]
+
+[if(aTask.OnChainExecution = true and aTask.type <> TaskType::Manual)]
+[if(aTask.incomingConnections.source.incomingConnections->isEmpty())] [comment] it is another way to say it is preceeded by a StartEvent[/comment]
+[if(aTask.eContainer(Lane) = null)]
+[file (capitalizeString(aTask, aTask.eContainer(Participant).name).replaceAll(' ','').replaceAll('-','').replaceAll('\'','') + 'Flow' + '.java', true, 'UTF-8')]				
+@InitiatingFlow
+@StartableByRPC
+public class [capitalizeString(aTask, aTask.name).replaceAll(' ','').replaceAll('-','').replaceAll('\'','') +'InitiatorFlow'/] extends FlowLogic<SignedTransaction>{
+private final Party counterparty;
+	public InitiatorFlow(Party counterparty){
+	this.counterparty = counterparty;
+	}
+}
+[/file]	
+[elseif(aTask.eContainer(Lane) <> null)]
+[file (capitalizeString(aTask, aTask.eContainer(Lane).name).replaceAll(' ','').replaceAll('-','').replaceAll('\'','') + 'Flow' + '.java', true, 'UTF-8')]				
+@InitiatingFlow
+@StartableByRPC
+public class [capitalizeString(aTask, aTask.name).replaceAll(' ','').replaceAll('-','').replaceAll('\'','') +'InitiatorFlow'/] extends FlowLogic<SignedTransaction>{
+private final Party counterparty;
+	public InitiatorFlow(Party counterparty){
+	this.counterparty = counterparty;
+	}
+}
+[/file]	
+[/if]
+
+
+[elseif((aTask.incomingConnections.source.incomingConnections->filter(MessageFlow)->isEmpty() and
+ aTask.incomingConnections.source.siblings(Lane) = aTask.siblings(Lane) or (aTask.outgoingConnections.target.outgoingConnections->filter(MessageFlow)->notEmpty()) and
+((aTask.outgoingConnections.target <> aTask.siblings(Lane) and aTask.outgoingConnections->filter(MessageFlow)->notEmpty()) or
+(aTask.outgoingConnections->includes(DataAssociation) and (aTask.outgoingConnections.eContainer(DataObject).OnChainData <> 'None' or aTask.outgoingConnections.eContainer(DataObject).OnChainData <> 'Undefined')))) 
+)]
+[if(aTask.eContainer(Lane) = null)]
+[file (capitalizeString(aTask, aTask.eContainer(Participant).name).replaceAll(' ','').replaceAll('-','').replaceAll('\'','') + 'Flow' + '.java', true, 'UTF-8')]				
+@InitiatingFlow
+@StartableByRPC
+public class [capitalizeString(aTask, aTask.name).replaceAll(' ','').replaceAll('-','').replaceAll('\'','') +'InitiatorFlow'/] extends FlowLogic<SignedTransaction>{
+private final Party counterparty;
+	public InitiatorFlow(Party counterparty){
+	this.counterparty = counterparty;
+	}
+}
+[/file]	
+[elseif(aTask.eContainer(Lane) <> null)]
+[file (capitalizeString(aTask, aTask.eContainer(Lane).name).replaceAll(' ','').replaceAll('-','').replaceAll('\'','') + 'Flow' + '.java', true, 'UTF-8')]				
+@InitiatingFlow
+@StartableByRPC
+public class [capitalizeString(aTask, aTask.name).replaceAll(' ','').replaceAll('-','').replaceAll('\'','') +'InitiatorFlow'/] extends FlowLogic<SignedTransaction>{
+private final Party counterparty;
+	public InitiatorFlow(Party counterparty){
+	this.counterparty = counterparty;
+	}
+}
+[/file]
+[/if]
+[/if]
+
+[/if]
+[/template]

@@ -1,0 +1,28 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-ClassPath: bin/
+Bundle-Name: Acceleo Sample Module Runtime Plug-in
+Bundle-SymbolicName: org.eclipse.acceleo.module.sample
+Bundle-Version: 1.0.0.qualifier
+Bundle-Activator: org.eclipse.acceleo.module.sample.Activator
+Bundle-Vendor: Eclipse Modeling Project
+Require-Bundle: org.eclipse.core.runtime, 
+ org.eclipse.wst.common.modulecore, 
+ it.polimi.isgroup.secbpmn2bc.model, 
+ it.unitn.disi.sweng.gmt.model, 
+ it.unitn.disi.sweng.secbpmn.model, 
+ org.eclipse.bpmn2, 
+ org.eclipse.emf.ecore,
+ org.eclipse.emf.ecore.xmi,
+ org.eclipse.ocl,
+ org.eclipse.ocl.ecore,
+ org.eclipse.acceleo.common;bundle-version="3.3.0",
+ org.eclipse.acceleo.model;bundle-version="3.3.0",
+ org.eclipse.acceleo.profiler;bundle-version="3.3.0",
+ org.eclipse.acceleo.engine;bundle-version="3.3.0",
+ com.google.guava
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-ActivationPolicy: lazy
+Eclipse-LazyStart: true
+Export-Package: org.eclipse.acceleo.module.sample.main
+

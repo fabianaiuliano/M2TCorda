@@ -1,0 +1,73 @@
+[comment encoding = UTF-8 /]
+[module Auditability('http://it.polimi.isgroup.secbpmn2bc.model/1.0', 'http://it.unitn.disi.sweng.gmt.model/1.0', 'http://it.unitn.disi.sweng.secbpmn.model/1.0')]
+
+
+[comment: java service wrapper supporting the camel case translation for the generated java classes /]
+[query public capitalizeString(arg0 : secbpmn::SecBpmnElement, arg1 : String) : String
+	= invoke('org.eclipse.acceleo.module.sample.main.myservicewrapper','capitalizeString(it.unitn.disi.sweng.secbpmn.model.SecBpmnElement, java.lang.String)', Sequence{arg0, arg1})/]
+
+
+[template public generateElement(anAuditability : Auditability)]
+[comment @main/]
+[if(self.eContainer(Task).OnChainExecution = true)]
+[file (capitalizeString(anAuditability, self.eContainer(Task).name).replaceAll(' ','').replaceAll('-','').replaceAll('\'','') +'Auditability.java', false, 'UTF-8')]
+public class AuditabilityAct {
+	public static boolean ensureAuditAct(LedgerTransaction tx) {
+	// extract the data to be signed from the transaction
+	byte['['/][']'/] dataToSign = tx.getInputs().get(0).getState().getData().getBytes();
+
+	// extract the public key of the signer from the transaction
+	PublicKey publicKey = tx.getInputs().get(0).getState().getData().getPublicKey();
+	
+	// extract the digital signature of the data
+	byte['['/][']'/] digitalSignature = tx.getInputs().get(0).getState().getSignature().getBytes();
+	
+	// verify the signature
+	return boolean verified = verifySignature(dataToSign, digitalSignature, publicKey);
+	}
+
+	public static boolean verifySignature(byte['['/][']'/]data, byte['['/][']'/] digitalSignature, PublicKey publicKey) {
+		try {
+			Signature signature = Signature.getInstance("SHA256withRSA");
+			signature.initVerify(publicKey);
+			signature.update(data);
+			return signature.verify(digitalSignature);
+		} catch(NoSuchAlgorithmException|InvalidKeyException| SignatureException e){
+			e.printStackTrace();
+			return false;
+		}
+	}
+}
+[/file]
+[elseif(self.eContainer(Task).OnChainExecution = false)]
+[file (capitalizeString(anAuditability, self.eContainer(Task).name).replaceAll(' ','').replaceAll('-','').replaceAll('\'','') +'Auditability.java', false, 'UTF-8')]
+Enforcement not possible for off-chain activities!
+[/file]
+[/if]
+
+[if( self.eContainer(DataObject).OnChainData = 'encrypted' or
+self.eContainer(DataObject).OnChainData = 'unencrypted' or self.eContainer(DataObject).OnChainData = 'digest')]
+[file (capitalizeString(anAuditability, self.eContainer(DataObject).name).replaceAll(' ','').replaceAll('-','').replaceAll('\'','') +'Auditability.java', false, 'UTF-8')]
+public class AuditabilityDO {
+private List<StateAndRef<ContractState>> inputs; 
+private List<StateAndRef<ContractState>> outputs;
+
+	public boolean doesAuditabilityHold(LedgerTransaction tx){
+	inputs = tx.getInputs();
+	outputs = tx.getOutputs();
+
+	for (StateAndRef<ContractState> input : inputs){
+	(MyState)inputState = (MyState)input.getState().getData();
+	UniqueIdentifier inputLinearId = inputState.getLinearId();
+		if (outputs.stream().noneMatch(output -> output.getState().getData().getLinearId().equals(inputLinearId))){
+			throw new IllegalArgumentException("Input and output linear ID must match");
+		}
+	}
+}
+[/file]
+[elseif(self.eContainer(DataObject).OnChainData = 'none')]
+[file (capitalizeString(anAuditability, self.eContainer(DataObject).name).replaceAll(' ','').replaceAll('-','').replaceAll('\'','') +'Auditability.java', false, 'UTF-8')]
+Enforcement not possible for off-chain data!
+[/file]
+[/if]
+[/template]

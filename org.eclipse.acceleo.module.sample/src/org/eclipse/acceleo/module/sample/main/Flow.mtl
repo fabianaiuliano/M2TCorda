@@ -1,0 +1,38 @@
+[comment encoding = UTF-8 /]
+[module Flow('http://it.polimi.isgroup.secbpmn2bc.model/1.0',
+'http://it.unitn.disi.sweng.gmt.model/1.0',
+'http://it.unitn.disi.sweng.secbpmn.model/1.0')]
+
+[comment: java service wrapper supporting the camel case translation for the generated java classes /]
+[query public capitalizeString(arg0 : secbpmn::SecBpmnElement, arg1 : String) : String
+	= invoke('org.eclipse.acceleo.module.sample.main.myservicewrapper',
+	'capitalizeString(it.unitn.disi.sweng.secbpmn.model.SecBpmnElement, java.lang.String)', Sequence{arg0, arg1})/]
+
+[comment: it generates a Flow class for each Participant/]
+[template public generateFlow(aParticipant : Participant)]
+[comment @main/]
+	[if(aParticipant.lanes->isEmpty())][comment: it absolves the presence of single lanes/]
+		[file(capitalizeString(aParticipant, aParticipant.name).replaceAll(' ','').replaceAll('-','').replaceAll('\'','') 
+		+ 'Flow' + '.java', true, 'UTF-8')]
+		package your.package.flows;
+		import net.corda.core.flows.*;
+		
+		public class [capitalizeString(aParticipant, aParticipant.name).replaceAll(' ','').replaceAll('-','').
+		replaceAll('\'','').toUpperFirst() + 'Flow'/]{
+		[comment: parenthesis won't be closed because they will be closed once all the Initiator and Responder flows
+		have been implemented, running closeBracket.mtl/]	
+		[/file]
+	[/if]
+	
+	[if(aParticipant.lanes->notEmpty())][comment: it absolves the presence of multiple lanes/]
+		[for(aParticipant.lanes->asSet())]
+			[file(capitalizeString(aParticipant, self.name).replaceAll(' ','').replaceAll('-','').replaceAll('\'','') 
+			+ 'Flow' + '.java', true, 'UTF-8')]
+			public class [capitalizeString(aParticipant, self.name).replaceAll(' ','').replaceAll('-','').
+			replaceAll('\'','').toUpperFirst() + 'Flow'/]{
+			[comment: parenthesis won't be closed because they will be closed once all the Initiator and Responder flows
+			have been implemented, running closeBracket.mtl/]	
+			[/file]
+		[/for]
+	[/if]
+[/template]

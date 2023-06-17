@@ -1,0 +1,25 @@
+[comment encoding = UTF-8 /]
+[module BindOfDuty('http://it.polimi.isgroup.secbpmn2bc.model/1.0', 'http://it.unitn.disi.sweng.gmt.model/1.0', 'http://it.unitn.disi.sweng.secbpmn.model/1.0')]
+
+[template public generateElement(aBindOfDuty : BindOfDuty)]
+[comment @main/]
+[for(self.securityAssociation.target.eContents(Task).OnChainExecution = true or self.securityAssociation.target.eContents(DataObject).OnChainData = 'encrypted' or 
+self.securityAssociation.target.eContents(DataObject).OnChainData = 'unencrypted' or  self.securityAssociation.target.eContents(DataObject).OnChainData = 'digest' )]
+
+[file ('BindOfDuty.java', false, 'UTF-8')]
+public class BindOfDuties{
+
+	public boolean areDutiesBindInFlow(){
+		FlowLogic<MyFlowLogicReturnType> flowLogic = this.getFlowLogic();
+		FlowSession otherPartySession = flowLogic.getCounterpartySession();
+
+		Party initiator = this.getServiceHub().getMyInfo().getLegalIdentities().get(0);
+		Party responder = otherPartySession.getCounterparty();
+		
+		return initiator.equals(responder);
+	}
+}
+[/file]
+
+[/for]
+[/template]

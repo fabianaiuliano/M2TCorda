@@ -1,0 +1,25 @@
+[comment encoding = UTF-8 /]
+[module SeparationOfDuties('http://it.polimi.isgroup.secbpmn2bc.model/1.0', 'http://it.unitn.disi.sweng.gmt.model/1.0', 'http://it.unitn.disi.sweng.secbpmn.model/1.0')]
+
+[comment: generates a class SeparationOfDuties whenever such an annotation is found/]
+[template public generateElement(aSeparationOfDuty : SeparationOfDuty)]
+[comment @main/]
+[for(self.securityAssociation.target.eContents(Task).OnChainExecution = true or self.securityAssociation.target.eContents(DataObject).OnChainData = 'encrypted' or 
+self.securityAssociation.target.eContents(DataObject).OnChainData = 'unencrypted' or  self.securityAssociation.target.eContents(DataObject).OnChainData = 'digest' )]
+
+[file ('SeparationOfDuties.java', false, 'UTF-8')]
+public class SeparationOfDuties {
+	[comment: the method, to be called in the context of the Flow between the two interacting parties, checks for the enforcement of the property/]
+	public boolean areDutiesDistinctInFlow(){
+		FlowLogic<MyFlowLogicReturnType> flowLogic = this.getFlowLogic();
+		FlowSession otherPartySession = flowLogic.getCounterpartySession();
+
+		Party initiator = this.getServiceHub().getMyInfo().getLegalIdentities().get(0);
+		Party responder = otherPartySession.getCounterparty();
+		
+		return ! initiator.equals(responder);
+	}
+}
+[/file]
+[/for]
+[/template]

@@ -1,0 +1,407 @@
+<?xml version="1.0" encoding="ASCII"?>
+<secbpmn2bc:Definitions xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:secbpmn="http://it.unitn.disi.sweng.secbpmn.model/1.0" xmlns:secbpmn2bc="http://it.polimi.isgroup.secbpmn2bc.model/1.0" uuid="669344ba-9651-4277-a27f-4569f52b9d31">
+  <nodes xsi:type="secbpmn:Participant" uuid="cf4cd0bd-8ca7-4141-90ac-b4a0924432e1" name="Seller" processRef="c8d2f80c-fbfc-4181-b6c9-7950ec0f55c8">
+    <graphicalsConstraints key="it.unitn.disi.sweng.secbpmn.view">
+      <value>
+        <properties key="bounds" value="201,-203,1982,445"/>
+      </value>
+    </graphicalsConstraints>
+    <nodes xsi:type="secbpmn2bc:Process" uuid="c8d2f80c-fbfc-4181-b6c9-7950ec0f55c8" name="Process Participant 1">
+      <graphicalsConstraints key="it.unitn.disi.sweng.secbpmn.view">
+        <value/>
+      </graphicalsConstraints>
+      <nodes xsi:type="secbpmn:StartEvent" uuid="f80d423a-4974-44b1-b0b3-279760506906" incomingConnections="1fb0efbb-1ade-48ec-ad27-d85b29c8d4e4" outgoingConnections="f8bbf3a8-765e-4a63-8d61-2f2a1effc323" name="Receive deal" definition="Message">
+        <graphicalsConstraints key="it.unitn.disi.sweng.secbpmn.view">
+          <value>
+            <properties key="bounds" value="35,191,50,114"/>
+          </value>
+        </graphicalsConstraints>
+      </nodes>
+      <nodes xsi:type="secbpmn2bc:Task" uuid="da46045b-2e98-4c19-a7eb-117b1319c4c6" incomingConnections="f8bbf3a8-765e-4a63-8d61-2f2a1effc323" outgoingConnections="cba9f8d0-8f2b-4f4f-a6de-12b0f9913196" name="Check stock" type="Manual" OnChainExecution="false">
+        <graphicalsConstraints key="it.unitn.disi.sweng.secbpmn.view">
+          <value>
+            <properties key="bounds" value="126,163,190,95"/>
+          </value>
+        </graphicalsConstraints>
+      </nodes>
+      <nodes xsi:type="secbpmn:ExclusiveGateway" uuid="8f6867e9-3be6-4fb7-b825-c2a8642a3d17" incomingConnections="cba9f8d0-8f2b-4f4f-a6de-12b0f9913196" outgoingConnections="22c48f31-8337-4656-b8dd-6912498ea445 a09af517-3ec7-426e-94d8-c1616be2d294" name="In stock ? ">
+        <graphicalsConstraints key="it.unitn.disi.sweng.secbpmn.view">
+          <value>
+            <properties key="bounds" value="352,186,50,124"/>
+          </value>
+        </graphicalsConstraints>
+      </nodes>
+      <nodes xsi:type="secbpmn2bc:Task" uuid="5c180767-4df4-4a04-81a1-e990463d2c4d" incomingConnections="22c48f31-8337-4656-b8dd-6912498ea445" outgoingConnections="fc536092-b624-460b-890d-e1d5b8a6eced" name="Propose alternative deal" type="User" OnChainExecution="true">
+        <graphicalsConstraints key="it.unitn.disi.sweng.secbpmn.view">
+          <value>
+            <properties key="bounds" value="453,0,190,95"/>
+          </value>
+        </graphicalsConstraints>
+        <nodes xsi:type="secbpmn:Authenticity" uuid="18b1a8f1-b72e-43ac-876f-7fe12c118952">
+          <graphicalsConstraints key="it.unitn.disi.sweng.secbpmn.view">
+            <value>
+              <properties key="bounds" value="131,50,16,16"/>
+            </value>
+          </graphicalsConstraints>
+        </nodes>
+      </nodes>
+      <nodes xsi:type="secbpmn2bc:Task" uuid="44db679e-be64-4fe0-afe9-6186ffb38375" incomingConnections="a09af517-3ec7-426e-94d8-c1616be2d294" outgoingConnections="d388bd8e-6092-4825-9ee9-49346d4e95dd" name="Agree deal" type="User" OnChainExecution="true">
+        <graphicalsConstraints key="it.unitn.disi.sweng.secbpmn.view">
+          <value>
+            <properties key="bounds" value="453,163,190,95"/>
+          </value>
+        </graphicalsConstraints>
+        <nodes xsi:type="secbpmn:Authenticity" uuid="b5225801-c4d2-49c9-ac78-50f1835d68bd">
+          <graphicalsConstraints key="it.unitn.disi.sweng.secbpmn.view">
+            <value>
+              <properties key="bounds" value="109,39,16,16"/>
+            </value>
+          </graphicalsConstraints>
+        </nodes>
+      </nodes>
+      <nodes xsi:type="secbpmn2bc:Task" uuid="47b904cb-a059-41e9-aea4-2756bde1c0b2" incomingConnections="5b545438-d8de-4f58-91a9-ccd38b96043e 5ff563d4-fa0d-43bf-a357-1e70bddeb97c" outgoingConnections="cd774f1e-1fad-4d28-a08c-063b3ed9c1ab" name="Ship goods" type="Manual">
+        <graphicalsConstraints key="it.unitn.disi.sweng.secbpmn.view">
+          <value>
+            <properties key="bounds" value="1192,163,190,95"/>
+          </value>
+        </graphicalsConstraints>
+      </nodes>
+      <nodes xsi:type="secbpmn:EndEvent" uuid="8e172eb3-0ba9-46b3-8f94-abd7624b52f8" incomingConnections="cd774f1e-1fad-4d28-a08c-063b3ed9c1ab" name="Event 1">
+        <graphicalsConstraints key="it.unitn.disi.sweng.secbpmn.view">
+          <value>
+            <properties key="bounds" value="1523,191,50,91"/>
+          </value>
+        </graphicalsConstraints>
+      </nodes>
+      <nodes xsi:type="secbpmn:ThrowEvent" uuid="162e9ab6-b94c-4704-b893-5ceb2ad9ba5c" incomingConnections="fc536092-b624-460b-890d-e1d5b8a6eced" outgoingConnections="427bf7ad-1b0a-4008-8000-8912277d622e e8692bd2-c130-43b6-b815-67a5e46bd6a1" name="Propose new deal" definition="Message">
+        <graphicalsConstraints key="it.unitn.disi.sweng.secbpmn.view">
+          <value>
+            <properties key="bounds" value="835,28,50,137"/>
+          </value>
+        </graphicalsConstraints>
+      </nodes>
+      <nodes xsi:type="secbpmn:ThrowEvent" uuid="b855a366-c50c-4441-8a65-666da8fbc976" incomingConnections="d388bd8e-6092-4825-9ee9-49346d4e95dd" outgoingConnections="04427022-3bd8-4d21-a68c-316b8dac9f74 a76dec2f-3c1c-4c7e-a0bb-41c55851dcf7" name="Accept deal" definition="Message">
+        <graphicalsConstraints key="it.unitn.disi.sweng.secbpmn.view">
+          <value>
+            <properties key="bounds" value="664,191,50,114"/>
+          </value>
+        </graphicalsConstraints>
+      </nodes>
+      <nodes xsi:type="secbpmn:ExclusiveGateway" uuid="571ea1d4-6867-48b8-80c8-df6837c8231e" incomingConnections="a76dec2f-3c1c-4c7e-a0bb-41c55851dcf7 e8692bd2-c130-43b6-b815-67a5e46bd6a1" outgoingConnections="b84e7524-4ba8-4e98-aff9-6a2c608bb33e 5ff563d4-fa0d-43bf-a357-1e70bddeb97c" name="Exclusive Gateway 2">
+        <graphicalsConstraints key="it.unitn.disi.sweng.secbpmn.view">
+          <value>
+            <properties key="bounds" value="942,186,50,170"/>
+          </value>
+        </graphicalsConstraints>
+      </nodes>
+      <nodes xsi:type="secbpmn:CatchEvent" uuid="a6f0e53a-28ca-4356-8850-207508c56851" incomingConnections="a0e4c5ab-a6ea-495a-9644-05fe529d25f9 b84e7524-4ba8-4e98-aff9-6a2c608bb33e" outgoingConnections="6df12e36-3504-43cd-a9f0-f66e717f0283" name="Event 3" definition="Message">
+        <graphicalsConstraints key="it.unitn.disi.sweng.secbpmn.view">
+          <value>
+            <properties key="bounds" value="1107,342,50,91"/>
+          </value>
+        </graphicalsConstraints>
+      </nodes>
+      <nodes xsi:type="secbpmn:EndEvent" uuid="194d0d7a-11f6-4bec-a182-9812b1d0c460" incomingConnections="6df12e36-3504-43cd-a9f0-f66e717f0283" name="Event 4">
+        <graphicalsConstraints key="it.unitn.disi.sweng.secbpmn.view">
+          <value>
+            <properties key="bounds" value="1197,342,50,91"/>
+          </value>
+        </graphicalsConstraints>
+      </nodes>
+      <relations xsi:type="secbpmn:SequenceFlow" uuid="f8bbf3a8-765e-4a63-8d61-2f2a1effc323" source="f80d423a-4974-44b1-b0b3-279760506906" target="da46045b-2e98-4c19-a7eb-117b1319c4c6">
+        <graphicalsConstraints key="it.unitn.disi.sweng.secbpmn.view">
+          <value/>
+        </graphicalsConstraints>
+      </relations>
+      <relations xsi:type="secbpmn:SequenceFlow" uuid="cba9f8d0-8f2b-4f4f-a6de-12b0f9913196" source="da46045b-2e98-4c19-a7eb-117b1319c4c6" target="8f6867e9-3be6-4fb7-b825-c2a8642a3d17">
+        <graphicalsConstraints key="it.unitn.disi.sweng.secbpmn.view">
+          <value/>
+        </graphicalsConstraints>
+      </relations>
+      <relations xsi:type="secbpmn:SequenceFlow" uuid="22c48f31-8337-4656-b8dd-6912498ea445" source="8f6867e9-3be6-4fb7-b825-c2a8642a3d17" target="5c180767-4df4-4a04-81a1-e990463d2c4d" name="">
+        <graphicalsConstraints key="it.unitn.disi.sweng.secbpmn.view">
+          <value>
+            <properties key="bendpoints" value="0,-162,-172,2"/>
+          </value>
+        </graphicalsConstraints>
+      </relations>
+      <relations xsi:type="secbpmn:SequenceFlow" uuid="a09af517-3ec7-426e-94d8-c1616be2d294" source="8f6867e9-3be6-4fb7-b825-c2a8642a3d17" target="44db679e-be64-4fe0-afe9-6186ffb38375">
+        <graphicalsConstraints key="it.unitn.disi.sweng.secbpmn.view">
+          <value/>
+        </graphicalsConstraints>
+      </relations>
+      <relations xsi:type="secbpmn:SequenceFlow" uuid="fc536092-b624-460b-890d-e1d5b8a6eced" source="5c180767-4df4-4a04-81a1-e990463d2c4d" target="162e9ab6-b94c-4704-b893-5ceb2ad9ba5c">
+        <graphicalsConstraints key="it.unitn.disi.sweng.secbpmn.view">
+          <value/>
+        </graphicalsConstraints>
+      </relations>
+      <relations xsi:type="secbpmn:SequenceFlow" uuid="d388bd8e-6092-4825-9ee9-49346d4e95dd" source="44db679e-be64-4fe0-afe9-6186ffb38375" target="b855a366-c50c-4441-8a65-666da8fbc976">
+        <graphicalsConstraints key="it.unitn.disi.sweng.secbpmn.view">
+          <value/>
+        </graphicalsConstraints>
+      </relations>
+      <relations xsi:type="secbpmn:SequenceFlow" uuid="6df12e36-3504-43cd-a9f0-f66e717f0283" source="a6f0e53a-28ca-4356-8850-207508c56851" target="194d0d7a-11f6-4bec-a182-9812b1d0c460">
+        <graphicalsConstraints key="it.unitn.disi.sweng.secbpmn.view">
+          <value/>
+        </graphicalsConstraints>
+      </relations>
+      <relations xsi:type="secbpmn:SequenceFlow" uuid="a76dec2f-3c1c-4c7e-a0bb-41c55851dcf7" source="b855a366-c50c-4441-8a65-666da8fbc976" target="571ea1d4-6867-48b8-80c8-df6837c8231e">
+        <graphicalsConstraints key="it.unitn.disi.sweng.secbpmn.view">
+          <value/>
+        </graphicalsConstraints>
+      </relations>
+      <relations xsi:type="secbpmn:SequenceFlow" uuid="e8692bd2-c130-43b6-b815-67a5e46bd6a1" source="162e9ab6-b94c-4704-b893-5ceb2ad9ba5c" target="571ea1d4-6867-48b8-80c8-df6837c8231e">
+        <graphicalsConstraints key="it.unitn.disi.sweng.secbpmn.view">
+          <value>
+            <properties key="bendpoints" value="106,0,0,-163"/>
+          </value>
+        </graphicalsConstraints>
+      </relations>
+      <relations xsi:type="secbpmn:SequenceFlow" uuid="b84e7524-4ba8-4e98-aff9-6a2c608bb33e" source="571ea1d4-6867-48b8-80c8-df6837c8231e" target="a6f0e53a-28ca-4356-8850-207508c56851" name="No">
+        <graphicalsConstraints key="it.unitn.disi.sweng.secbpmn.view">
+          <value>
+            <properties key="bendpoints" value="0,150,-166,-2"/>
+          </value>
+        </graphicalsConstraints>
+      </relations>
+      <relations xsi:type="secbpmn:SequenceFlow" uuid="5ff563d4-fa0d-43bf-a357-1e70bddeb97c" source="571ea1d4-6867-48b8-80c8-df6837c8231e" target="47b904cb-a059-41e9-aea4-2756bde1c0b2" name="Yes">
+        <graphicalsConstraints key="it.unitn.disi.sweng.secbpmn.view">
+          <value/>
+        </graphicalsConstraints>
+      </relations>
+      <relations xsi:type="secbpmn:SequenceFlow" uuid="cd774f1e-1fad-4d28-a08c-063b3ed9c1ab" source="47b904cb-a059-41e9-aea4-2756bde1c0b2" target="8e172eb3-0ba9-46b3-8f94-abd7624b52f8">
+        <graphicalsConstraints key="it.unitn.disi.sweng.secbpmn.view">
+          <value/>
+        </graphicalsConstraints>
+      </relations>
+    </nodes>
+  </nodes>
+  <nodes xsi:type="secbpmn:Participant" uuid="0e5afc2f-46c6-44e1-9b71-54df2dc51be5" name="Buyer" processRef="1093a02c-439e-4f38-afa7-0172f641d87f">
+    <graphicalsConstraints key="it.unitn.disi.sweng.secbpmn.view">
+      <value>
+        <properties key="bounds" value="205,460,1559,550"/>
+      </value>
+    </graphicalsConstraints>
+    <nodes xsi:type="secbpmn2bc:Process" uuid="1093a02c-439e-4f38-afa7-0172f641d87f" name="Process Participant 1">
+      <graphicalsConstraints key="it.unitn.disi.sweng.secbpmn.view">
+        <value/>
+      </graphicalsConstraints>
+      <nodes xsi:type="secbpmn:StartEvent" uuid="ac20175b-1424-4028-8e21-6bfdfd4d2f84" outgoingConnections="c1a0e24f-dc1c-460e-bab7-c54a698e38ce" name="Start Event ">
+        <graphicalsConstraints key="it.unitn.disi.sweng.secbpmn.view">
+          <value>
+            <properties key="bounds" value="24,350,50,114"/>
+          </value>
+        </graphicalsConstraints>
+      </nodes>
+      <nodes xsi:type="secbpmn2bc:Task" uuid="5d42e49c-055c-40f2-8a34-0691707bfe2e" incomingConnections="c1a0e24f-dc1c-460e-bab7-c54a698e38ce" outgoingConnections="9a280370-8cf2-4173-a07d-dc9207bab3dc" name="Decide what to buy" type="Manual">
+        <graphicalsConstraints key="it.unitn.disi.sweng.secbpmn.view">
+          <value>
+            <properties key="bounds" value="100,322,190,95"/>
+          </value>
+        </graphicalsConstraints>
+      </nodes>
+      <nodes xsi:type="secbpmn2bc:Task" uuid="02541a24-fa62-4025-b9ef-64aa07cbdb6b" incomingConnections="9a280370-8cf2-4173-a07d-dc9207bab3dc" outgoingConnections="1fb0efbb-1ade-48ec-ad27-d85b29c8d4e4 a21cfab2-2b4c-47d2-99e5-965dcc8a26e6" name="Propose Deal" type="Send" OnChainExecution="true">
+        <graphicalsConstraints key="it.unitn.disi.sweng.secbpmn.view">
+          <value>
+            <properties key="bounds" value="340,322,190,95"/>
+          </value>
+        </graphicalsConstraints>
+        <nodes xsi:type="secbpmn:Authenticity" uuid="3ea4ebaa-c603-4ed5-92ff-883f966c31d5">
+          <graphicalsConstraints key="it.unitn.disi.sweng.secbpmn.view">
+            <value>
+              <properties key="bounds" value="98,31,16,16"/>
+            </value>
+          </graphicalsConstraints>
+        </nodes>
+      </nodes>
+      <nodes xsi:type="secbpmn:CatchEvent" uuid="a05f0383-9558-4026-909e-4cdb5d66544a" incomingConnections="8577571c-bda1-4d48-99ba-a433e0f88e19 427bf7ad-1b0a-4008-8000-8912277d622e" outgoingConnections="f2ba35e6-1819-4d5c-933f-9bad95ffd110" name="Receive new proposal" definition="Message">
+        <graphicalsConstraints key="it.unitn.disi.sweng.secbpmn.view">
+          <value>
+            <properties key="bounds" value="832,73,50,160"/>
+          </value>
+        </graphicalsConstraints>
+      </nodes>
+      <nodes xsi:type="secbpmn:ExclusiveGateway" uuid="6170f750-087b-4600-8998-b60a26d2e425" incomingConnections="a21cfab2-2b4c-47d2-99e5-965dcc8a26e6" outgoingConnections="7d6822d0-74ee-4e7f-8ea3-d8f25b18a269 8577571c-bda1-4d48-99ba-a433e0f88e19" name="Exclusive Gateway 1">
+        <graphicalsConstraints key="it.unitn.disi.sweng.secbpmn.view">
+          <value>
+            <properties key="bounds" value="580,344,50,170"/>
+          </value>
+        </graphicalsConstraints>
+      </nodes>
+      <nodes xsi:type="secbpmn:CatchEvent" uuid="34226eb1-1731-4214-8a28-eadbc90dedfc" incomingConnections="7d6822d0-74ee-4e7f-8ea3-d8f25b18a269 04427022-3bd8-4d21-a68c-316b8dac9f74" outgoingConnections="6127c5ab-8486-460d-aaa5-5527778c3968" name="Receive deal confirmation" definition="Message">
+        <graphicalsConstraints key="it.unitn.disi.sweng.secbpmn.view">
+          <value>
+            <properties key="bounds" value="663,349,50,183"/>
+          </value>
+        </graphicalsConstraints>
+      </nodes>
+      <nodes xsi:type="secbpmn2bc:Task" uuid="039e8820-db2c-4146-b6ba-1d99fd31e4e0" incomingConnections="6127c5ab-8486-460d-aaa5-5527778c3968 539986a8-14e3-4549-94da-ac8258a291fd" outgoingConnections="fe34ad84-9a29-412f-b82d-a0628a5ed984 9cd802f8-6caa-4ea8-87f8-b9c4dba1a2e8" name="Confirm deal and share shipment information" type="User" OnChainExecution="true">
+        <graphicalsConstraints key="it.unitn.disi.sweng.secbpmn.view">
+          <value>
+            <properties key="bounds" value="913,321,190,95"/>
+          </value>
+        </graphicalsConstraints>
+      </nodes>
+      <nodes xsi:type="secbpmn:ExclusiveGateway" uuid="ddd6e097-cd33-4f81-8d0c-ac834b1fdeb8" incomingConnections="f2ba35e6-1819-4d5c-933f-9bad95ffd110" outgoingConnections="eaf79045-338a-4338-a3be-51fbbe648262 539986a8-14e3-4549-94da-ac8258a291fd" name="Agree deal ?">
+        <graphicalsConstraints key="it.unitn.disi.sweng.secbpmn.view">
+          <value>
+            <properties key="bounds" value="983,68,50,147"/>
+          </value>
+        </graphicalsConstraints>
+      </nodes>
+      <nodes xsi:type="secbpmn:EndEvent" uuid="a6682d49-c220-4166-a4a5-6a62477aeef8" incomingConnections="4e24a0d4-5bfa-49cb-9436-b327fa7387ef" name="Event 2">
+        <graphicalsConstraints key="it.unitn.disi.sweng.secbpmn.view">
+          <value>
+            <properties key="bounds" value="1293,73,50,91"/>
+          </value>
+        </graphicalsConstraints>
+      </nodes>
+      <nodes xsi:type="secbpmn:ThrowEvent" uuid="9c130f29-21ce-4ffa-8505-41c9a1609afe" incomingConnections="eaf79045-338a-4338-a3be-51fbbe648262" outgoingConnections="4e24a0d4-5bfa-49cb-9436-b327fa7387ef a0e4c5ab-a6ea-495a-9644-05fe529d25f9" name="Event 5" definition="Message">
+        <graphicalsConstraints key="it.unitn.disi.sweng.secbpmn.view">
+          <value>
+            <properties key="bounds" value="1102,73,50,91"/>
+          </value>
+        </graphicalsConstraints>
+      </nodes>
+      <nodes xsi:type="secbpmn:EndEvent" uuid="2feb28ed-ec0c-4410-a261-9e68a9e25a3b" incomingConnections="9cd802f8-6caa-4ea8-87f8-b9c4dba1a2e8" name="Event 6">
+        <graphicalsConstraints key="it.unitn.disi.sweng.secbpmn.view">
+          <value>
+            <properties key="bounds" value="1153,348,40,40"/>
+          </value>
+        </graphicalsConstraints>
+      </nodes>
+      <relations xsi:type="secbpmn:SequenceFlow" uuid="c1a0e24f-dc1c-460e-bab7-c54a698e38ce" source="ac20175b-1424-4028-8e21-6bfdfd4d2f84" target="5d42e49c-055c-40f2-8a34-0691707bfe2e">
+        <graphicalsConstraints key="it.unitn.disi.sweng.secbpmn.view">
+          <value/>
+        </graphicalsConstraints>
+      </relations>
+      <relations xsi:type="secbpmn:SequenceFlow" uuid="9a280370-8cf2-4173-a07d-dc9207bab3dc" source="5d42e49c-055c-40f2-8a34-0691707bfe2e" target="02541a24-fa62-4025-b9ef-64aa07cbdb6b">
+        <graphicalsConstraints key="it.unitn.disi.sweng.secbpmn.view">
+          <value/>
+        </graphicalsConstraints>
+      </relations>
+      <relations xsi:type="secbpmn:SequenceFlow" uuid="a21cfab2-2b4c-47d2-99e5-965dcc8a26e6" source="02541a24-fa62-4025-b9ef-64aa07cbdb6b" target="6170f750-087b-4600-8998-b60a26d2e425">
+        <graphicalsConstraints key="it.unitn.disi.sweng.secbpmn.view">
+          <value/>
+        </graphicalsConstraints>
+      </relations>
+      <relations xsi:type="secbpmn:SequenceFlow" uuid="7d6822d0-74ee-4e7f-8ea3-d8f25b18a269" source="6170f750-087b-4600-8998-b60a26d2e425" target="34226eb1-1731-4214-8a28-eadbc90dedfc">
+        <graphicalsConstraints key="it.unitn.disi.sweng.secbpmn.view">
+          <value/>
+        </graphicalsConstraints>
+      </relations>
+      <relations xsi:type="secbpmn:SequenceFlow" uuid="8577571c-bda1-4d48-99ba-a433e0f88e19" source="6170f750-087b-4600-8998-b60a26d2e425" target="a05f0383-9558-4026-909e-4cdb5d66544a" name="">
+        <graphicalsConstraints key="it.unitn.disi.sweng.secbpmn.view">
+          <value>
+            <properties key="bendpoints" value="0,-278,-252,-2"/>
+          </value>
+        </graphicalsConstraints>
+      </relations>
+      <relations xsi:type="secbpmn:SequenceFlow" uuid="6127c5ab-8486-460d-aaa5-5527778c3968" source="34226eb1-1731-4214-8a28-eadbc90dedfc" target="039e8820-db2c-4146-b6ba-1d99fd31e4e0">
+        <graphicalsConstraints key="it.unitn.disi.sweng.secbpmn.view">
+          <value/>
+        </graphicalsConstraints>
+      </relations>
+      <relations xsi:type="secbpmn:SequenceFlow" uuid="f2ba35e6-1819-4d5c-933f-9bad95ffd110" source="a05f0383-9558-4026-909e-4cdb5d66544a" target="ddd6e097-cd33-4f81-8d0c-ac834b1fdeb8">
+        <graphicalsConstraints key="it.unitn.disi.sweng.secbpmn.view">
+          <value/>
+        </graphicalsConstraints>
+      </relations>
+      <relations xsi:type="secbpmn:SequenceFlow" uuid="eaf79045-338a-4338-a3be-51fbbe648262" source="ddd6e097-cd33-4f81-8d0c-ac834b1fdeb8" target="9c130f29-21ce-4ffa-8505-41c9a1609afe" name="No">
+        <graphicalsConstraints key="it.unitn.disi.sweng.secbpmn.view">
+          <value/>
+        </graphicalsConstraints>
+      </relations>
+      <relations xsi:type="secbpmn:SequenceFlow" uuid="4e24a0d4-5bfa-49cb-9436-b327fa7387ef" source="9c130f29-21ce-4ffa-8505-41c9a1609afe" target="a6682d49-c220-4166-a4a5-6a62477aeef8">
+        <graphicalsConstraints key="it.unitn.disi.sweng.secbpmn.view">
+          <value/>
+        </graphicalsConstraints>
+      </relations>
+      <relations xsi:type="secbpmn:SequenceFlow" uuid="539986a8-14e3-4549-94da-ac8258a291fd" source="ddd6e097-cd33-4f81-8d0c-ac834b1fdeb8" target="039e8820-db2c-4146-b6ba-1d99fd31e4e0" name="Yes">
+        <graphicalsConstraints key="it.unitn.disi.sweng.secbpmn.view">
+          <value/>
+        </graphicalsConstraints>
+      </relations>
+      <relations xsi:type="secbpmn:SequenceFlow" uuid="9cd802f8-6caa-4ea8-87f8-b9c4dba1a2e8" source="039e8820-db2c-4146-b6ba-1d99fd31e4e0" target="2feb28ed-ec0c-4410-a261-9e68a9e25a3b">
+        <graphicalsConstraints key="it.unitn.disi.sweng.secbpmn.view">
+          <value/>
+        </graphicalsConstraints>
+      </relations>
+    </nodes>
+  </nodes>
+  <nodes xsi:type="secbpmn2bc:DataObject" uuid="c83dfb14-1702-4a88-a48d-7824e3aea908" incomingConnections="fe34ad84-9a29-412f-b82d-a0628a5ed984" outgoingConnections="5b545438-d8de-4f58-91a9-ccd38b96043e" name="Shipment address" OnChainData="Encrypted">
+    <graphicalsConstraints key="it.unitn.disi.sweng.secbpmn.view">
+      <value>
+        <properties key="bounds" value="1772,326,78,190"/>
+        <properties key="security_compartment" value="true"/>
+      </value>
+    </graphicalsConstraints>
+    <nodes xsi:type="secbpmn:Integrity" uuid="de1648b3-304b-482e-aef9-0c6cad08d124">
+      <graphicalsConstraints key="it.unitn.disi.sweng.secbpmn.view">
+        <value>
+          <properties key="bounds" value="39,53,16,16"/>
+        </value>
+      </graphicalsConstraints>
+    </nodes>
+  </nodes>
+  <relations xsi:type="secbpmn:MessageFlow" uuid="1fb0efbb-1ade-48ec-ad27-d85b29c8d4e4" source="02541a24-fa62-4025-b9ef-64aa07cbdb6b" target="f80d423a-4974-44b1-b0b3-279760506906">
+    <graphicalsConstraints key="it.unitn.disi.sweng.secbpmn.view">
+      <value/>
+    </graphicalsConstraints>
+    <messageRef uuid="4034fb18-7c1b-4523-bac2-b6fd7dc4abdb">
+      <graphicalsConstraints key="it.unitn.disi.sweng.secbpmn.view">
+        <value>
+          <properties key="bounds" value="0,0,41,31"/>
+        </value>
+      </graphicalsConstraints>
+    </messageRef>
+  </relations>
+  <relations xsi:type="secbpmn:MessageFlow" uuid="04427022-3bd8-4d21-a68c-316b8dac9f74" source="b855a366-c50c-4441-8a65-666da8fbc976" target="34226eb1-1731-4214-8a28-eadbc90dedfc">
+    <graphicalsConstraints key="it.unitn.disi.sweng.secbpmn.view">
+      <value/>
+    </graphicalsConstraints>
+    <messageRef uuid="be69dae7-5f19-4aa2-8402-844b8cff5b40">
+      <graphicalsConstraints key="it.unitn.disi.sweng.secbpmn.view">
+        <value>
+          <properties key="bounds" value="0,0,41,31"/>
+        </value>
+      </graphicalsConstraints>
+    </messageRef>
+  </relations>
+  <relations xsi:type="secbpmn:MessageFlow" uuid="427bf7ad-1b0a-4008-8000-8912277d622e" source="162e9ab6-b94c-4704-b893-5ceb2ad9ba5c" target="a05f0383-9558-4026-909e-4cdb5d66544a">
+    <graphicalsConstraints key="it.unitn.disi.sweng.secbpmn.view">
+      <value/>
+    </graphicalsConstraints>
+    <messageRef uuid="eb314813-e6a4-4367-938b-3049e72195b7">
+      <graphicalsConstraints key="it.unitn.disi.sweng.secbpmn.view">
+        <value>
+          <properties key="bounds" value="0,0,41,31"/>
+        </value>
+      </graphicalsConstraints>
+    </messageRef>
+  </relations>
+  <relations xsi:type="secbpmn:DataAssociation" uuid="fe34ad84-9a29-412f-b82d-a0628a5ed984" source="039e8820-db2c-4146-b6ba-1d99fd31e4e0" target="c83dfb14-1702-4a88-a48d-7824e3aea908">
+    <graphicalsConstraints key="it.unitn.disi.sweng.secbpmn.view">
+      <value>
+        <properties key="bendpoints" value=""/>
+      </value>
+    </graphicalsConstraints>
+  </relations>
+  <relations xsi:type="secbpmn:DataAssociation" uuid="5b545438-d8de-4f58-91a9-ccd38b96043e" source="c83dfb14-1702-4a88-a48d-7824e3aea908" target="47b904cb-a059-41e9-aea4-2756bde1c0b2">
+    <graphicalsConstraints key="it.unitn.disi.sweng.secbpmn.view">
+      <value/>
+    </graphicalsConstraints>
+  </relations>
+  <relations xsi:type="secbpmn:MessageFlow" uuid="a0e4c5ab-a6ea-495a-9644-05fe529d25f9" source="9c130f29-21ce-4ffa-8505-41c9a1609afe" target="a6f0e53a-28ca-4356-8850-207508c56851">
+    <graphicalsConstraints key="it.unitn.disi.sweng.secbpmn.view">
+      <value/>
+    </graphicalsConstraints>
+    <messageRef uuid="d878fd9d-1339-4350-bf69-f2a4c5865854">
+      <graphicalsConstraints key="it.unitn.disi.sweng.secbpmn.view">
+        <value>
+          <properties key="bounds" value="0,0,41,31"/>
+        </value>
+      </graphicalsConstraints>
+    </messageRef>
+  </relations>
+</secbpmn2bc:Definitions>
